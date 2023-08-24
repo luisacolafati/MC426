@@ -1,5 +1,5 @@
 1 - Beatriz Vitória Pereira Moura (RA232076)
 2 - Ayla Cristine Pereira Machado (RA256332)
-3 - Ayla Cristine Pereira Machado (RA256332)
+3 - Luisa Freitas Colafati (RA247249)
 4 - Ayla Cristine Pereira Machado (RA256332)
 5 - Ayla Cristine Pereira Machado (RA256332)
