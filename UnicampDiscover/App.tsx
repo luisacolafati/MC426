@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+//import { View } from 'react-native';
 import { getAllInstitutes } from './src/services/FirestoreService';
 import { DocumentData } from 'firebase/firestore/lite';
-import { styles } from './src/styles/styles';
+//import { styles } from './src/styles/styles';
+import { TabRoutes } from './src/routes/tab.routes';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)
@@ -18,8 +21,11 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Bem vinde a nosso projeto de MC426!</Text>
-    </View>
+    <NavigationContainer>
+      <TabRoutes />
+
+    </NavigationContainer>
+    
+
   );
 }
