@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View } from 'react-native'; 
 import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 import { BathroomCard } from '../components/BathroomCard';
+import { styles } from '../styles/styles';
 
 export function BathroomScreen(){
     const [bathrooms, setBathrooms] = useState<any[]>([]);
@@ -42,6 +43,8 @@ export function BathroomScreen(){
           });
       
           return (
-            bathroomCards
+            <ScrollView style={styles.bathroomScrollView}>
+                {bathroomCards}
+            </ScrollView>
           );
       }
