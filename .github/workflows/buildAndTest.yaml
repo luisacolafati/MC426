@@ -16,4 +16,4 @@ jobs:
           node-version: '18.x'
       - run: cd UnicampDiscover && npm install
       - run: cd UnicampDiscover && npm run build --if-present
-      - run: cd UnicampDiscover && npm run test
+      - run: cd UnicampDiscover && npm run test --if-present
