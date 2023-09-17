@@ -14,15 +14,13 @@ export function BathroomScreen(){
         const q = collection(db, 'bathrooms');
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-          const bathroomList: any[] = [];
-          querySnapshot.forEach((documentSnapshot) => {
-            const data = documentSnapshot.data();
-            bathroomList.push(data);
-          });
-          setBathrooms(bathroomList);
+            const bathroomList: any[] = [];
+            querySnapshot.forEach((documentSnapshot) => {
+                const data = documentSnapshot.data();
+                bathroomList.push(data);
+            });
+            setBathrooms(bathroomList);
         });
-
-        // Retorne a função de limpeza para interromper a escuta quando o componente for desmontado.
         return () => unsubscribe();
     }, []);
 
@@ -30,28 +28,28 @@ export function BathroomScreen(){
         bathroom.location.toLowerCase().includes(search.toLowerCase())
     );
 
-        const bathroomCards = filteredBathrooms.map((bathroom, index) => {
-            let icon = "";
-            if(bathroom.gender === "feminino") {
-                icon = "human-female"
-            } else if (bathroom.gender === "masculino") {
-                icon = "human-male"
-            } else {
-                icon = "human-male-female"
-            }
+    const bathroomCards = filteredBathrooms.map((bathroom, index) => {
+        let icon = "";
+        if(bathroom.gender === "feminino") {
+            icon = "human-female"
+        } else if (bathroom.gender === "masculino") {
+            icon = "human-male"
+        } else {
+            icon = "human-male-female"
+        }
 
-            return (
-                <BathroomCard
-                key={index}
-                icon={icon}
-                location={bathroom.location}
-                address={bathroom.address}
-                floor={bathroom.floor}
-                />
-            );
-          });
-      
-          return (
+        return (
+            <BathroomCard
+            key={index}
+            icon={icon}
+            location={bathroom.location}
+            address={bathroom.address}
+            floor={bathroom.floor}
+            />
+        );
+    });
+    
+        return (
             <ScrollView style={styles.bathroomScrollView}>
                 <BathroomSearchBar 
                 search={search}
@@ -59,5 +57,5 @@ export function BathroomScreen(){
                 />
                 {bathroomCards}
             </ScrollView>
-          );
-      }
+        );
+}

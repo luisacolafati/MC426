@@ -6,21 +6,21 @@ import { styles } from './src/styles/styles';
 import { BathroomScreen } from './src/screens/BathroomScreen';
 
 export default function App() {
-  const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)
-  
-  async function getInstitutes() {
-    const institutes = await getAllInstitutes();
-    setInstitutes(institutes);
-    console.log("institutes => ", JSON.stringify(institutes));
-  }
+    const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)
+    
+    async function getInstitutes() {
+        const institutes = await getAllInstitutes();
+        setInstitutes(institutes);
+        console.log("institutes => ", JSON.stringify(institutes));
+    }
 
   useEffect(() => {
-    getInstitutes();
+      getInstitutes();
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <BathroomScreen/>
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <BathroomScreen/>
+        </View>
+    );
 }
