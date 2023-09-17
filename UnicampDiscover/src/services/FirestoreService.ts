@@ -1,9 +1,6 @@
-import { DocumentData, collection, getDocs, getFirestore } from "firebase/firestore/lite";
-import { firebaseApp } from "../config/FirebaseConfig";
+import { DocumentData, Firestore, collection, getDocs } from "firebase/firestore";
 
-const db = getFirestore(firebaseApp);
-
-export async function getAllInstitutes (): Promise<DocumentData[]> {
+export async function getAllInstitutes (db: Firestore): Promise<DocumentData[]> {
     const institutesCollection = collection(db, 'institute');
     const institutesSnapshot = await getDocs(institutesCollection);
     const institutesList = institutesSnapshot.docs.map((doc) => doc.data());

@@ -1,6 +1,8 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app'
 
-const firebaseConfig = {
+export const FIREBASE_TOKEN = '1//0hEP_j2dCnU6OCgYIARAAGBESNwF-L9IrDdJ_aFa7Yt5dVGvhjjlz0fT0Y0TumgzjHdITFdmmQQDFehWDyAngWOX91SZXUaZSTz8'
+
+export const firebaseConfig = {
     apiKey: "AIzaSyCeIIVdgvz7vOcWrlFpLWH9XNw15CZ3Bgg",
     authDomain: "mc426-200cb.firebaseapp.com",
     projectId: "mc426-200cb",
@@ -10,4 +12,4 @@ const firebaseConfig = {
     measurementId: "G-LM41ZSTCTQ"
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig)
