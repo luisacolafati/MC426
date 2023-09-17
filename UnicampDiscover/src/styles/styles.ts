@@ -22,8 +22,8 @@ export const styles = StyleSheet.create({
     bathroomView: {
       height: 120,
       width: '90%',
-      backgroundColor: '#ffffff',
-      paddingLeft: '5%',
+      backgroundColor: '#f7f7f7',
+      paddingLeft: '2%',
       flexDirection: "row",
       alignItems: 'center',
       borderRadius: 10,
@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
       marginBottom: '2%'
     },
     bathroomInternView: {
-      marginLeft: '5%',
+      marginLeft: '2%',
       height: '80%',
       paddingLeft: '5%',
       justifyContent: 'space-between',
@@ -47,8 +47,25 @@ export const styles = StyleSheet.create({
     },
     iconBathroom: {
       borderRightWidth: 1,
-      paddingRight: '5%',
+      paddingRight: '2%',
       height: '60%',
       justifyContent: 'center',
+    },
+
+    // BathroomSearchBar
+    bathroomSearch: {
+      height: 35,
+      width: '90%',
+      backgroundColor: '#f7f7f7',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#cccccc',
+      flexDirection: 'row',
+      marginBottom: '2%',
+      paddingHorizontal: '2%',
+      alignItems: 'center',
+    },
+    bathroomTextInput: {
+      marginHorizontal: '2%'
     }
 });

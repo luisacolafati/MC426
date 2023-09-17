@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'; 
 import { ScrollView, View } from 'react-native'; 
-import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
+import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
 import { BathroomCard } from '../components/BathroomCard';
+import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
 
 export function BathroomScreen(){
     const [bathrooms, setBathrooms] = useState<any[]>([]);
+    const [search, setSearch] = useState<string>("");
 
     useEffect(() => {
         const db = getFirestore();
+        const q = collection(db, 'bathrooms');
 
-        const unsubscribe = onSnapshot(collection(db, 'bathrooms'), (querySnapshot) => {
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
           const bathroomList: any[] = [];
           querySnapshot.forEach((documentSnapshot) => {
             const data = documentSnapshot.data();
@@ -19,9 +22,15 @@ export function BathroomScreen(){
           setBathrooms(bathroomList);
         });
 
+        // Retorne a função de limpeza para interromper a escuta quando o componente for desmontado.
+        return () => unsubscribe();
     }, []);
 
-        const bathroomCards = bathrooms.map((bathroom, index) => {
+    const filteredBathrooms = bathrooms.filter((bathroom) =>
+        bathroom.location.toLowerCase().includes(search.toLowerCase())
+    );
+
+        const bathroomCards = filteredBathrooms.map((bathroom, index) => {
             let icon = "";
             if(bathroom.gender === "feminino") {
                 icon = "human-female"
@@ -44,7 +53,12 @@ export function BathroomScreen(){
       
           return (
             <ScrollView style={styles.bathroomScrollView}>
+                <BathroomSearchBar 
+                search={search}
+                setSearch={setSearch}
+                />
                 {bathroomCards}
             </ScrollView>
           );
       }
+
