@@ -3,7 +3,9 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        width: "100%",
+        height: "100%",
+        backgroundColor: '#ffffff',
         justifyContent: 'center',
         alignContent: 'center',
         textAlign: 'center',
@@ -27,7 +29,6 @@ export const styles = StyleSheet.create({
     // BathroomCard
     bathroomScrollView: {
         flex: 1,
-        backgroundColor: '#ffffff',
         width: '100%',
         marginTop: '10%',
         marginLeft: '5%',
@@ -69,7 +70,7 @@ export const styles = StyleSheet.create({
 
     // BathroomSearchBar
     bathroomSearch: {
-        height: 35,
+        height: 45,
         width: '90%',
         backgroundColor: '#f7f7f7',
         borderRadius: 10,

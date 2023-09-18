@@ -25,7 +25,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <TabRoutes />
-
     </NavigationContainer>
     
 

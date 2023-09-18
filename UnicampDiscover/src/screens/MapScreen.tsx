@@ -21,7 +21,7 @@ const MyComponent = () => {
   
     const onChangeSearch = (query: React.SetStateAction<string>) => setSearchQuery(query);
   
-    return (
+    /*return (
       <Searchbar
         iconColor = "#850a0a"
         placeholder="Search"
@@ -30,7 +30,7 @@ const MyComponent = () => {
         value={searchQuery}
         
       />
-    );
+    );*/
   };
   
   export default MyComponent;
@@ -41,10 +41,7 @@ export function MapScreen( ){
         <SafeAreaView style={styles.container}>
             
             <ImageBackground source={image} resizeMode="cover" style={styles.imageBackground}>
-               
-                <MyComponent></MyComponent>
             </ImageBackground>
-            
         </SafeAreaView>
         
         
