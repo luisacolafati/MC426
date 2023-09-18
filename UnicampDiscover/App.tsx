@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { styles } from './src/styles/styles';
-import db from './src/config/FirestoreDb';
-import { DocumentData } from 'firebase/firestore/lite';
 import { getAllInstitutes } from './src/services/FirestoreService';
+import { DocumentData } from 'firebase/firestore/lite';
+import { TabRoutes } from './src/routes/tab.routes';
+import { NavigationContainer } from '@react-navigation/native';
+import db from './src/config/FirestoreDb';
 
 export default function App() {
-  const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)
-  
-  async function getInstitutes() {
-    const institutes = await getAllInstitutes(db);
-    setInstitutes(institutes);
-    console.log("institutes => ", JSON.stringify(institutes));
-  }
+    const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)
+    
+    async function getInstitutes() {
+        const institutes = await getAllInstitutes(db);
+        setInstitutes(institutes);
+        console.log("institutes => ", JSON.stringify(institutes));
+    }
 
   useEffect(() => {
-    getInstitutes();
+      getInstitutes();
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>Bem vinde a nosso projeto de MC426!</Text>
-    </View>
+    <NavigationContainer>
+      <TabRoutes />
+    </NavigationContainer>
   );
 }
