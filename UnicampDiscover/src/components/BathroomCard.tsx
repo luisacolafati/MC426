@@ -1,9 +1,18 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { styles } from '../styles/styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export function BathroomCard({ location, address, floor, icon}: { location: string, address: string, floor: string, icon: string }) {
+interface  BathroomCardProps { 
+    location: string; 
+    address: string;
+    floor: string; 
+    icon: string;
+}
+
+export function BathroomCard({ location, address, floor, icon}: BathroomCardProps) {
+
     return(
         <View style={styles.bathroomView}>
             <View style={styles.iconBathroom}>
@@ -17,6 +26,15 @@ export function BathroomCard({ location, address, floor, icon}: { location: stri
                 <Text style={styles.titleBathroomCard}>Andar: </Text>
                 <Text style={styles.textBathroomCard}>{floor}</Text>
             </View>
+
+            //Botão Saiba Mais
+            <TouchableOpacity>
+                onPress={() => {
+                    navigator.navigate('LearnMoreScreen')
+                }}
+                style={styles.learnMoreButton}
+            <Text style={styles.learnMoreButtonText}> Saiba Mais </Text>
+          </TouchableOpacity>
         </View>
     )
 }

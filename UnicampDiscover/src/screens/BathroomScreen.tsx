@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'; 
 import { ScrollView, View } from 'react-native'; 
 import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
+import { createStackNavigator } from '@react-navigation/stack';
 import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
 
-export function BathroomScreen(){
+export function BathroomScreen({ navigation }){
+
     const [bathrooms, setBathrooms] = useState<any[]>([]);
     const [search, setSearch] = useState<string>("");
 

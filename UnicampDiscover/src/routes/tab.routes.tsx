@@ -3,8 +3,23 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
 import { BathroomScreen } from '../screens/BathroomScreen';
+import { LearnMoreScreen } from '../screens/LearnMoreScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const BathroomStack = createStackNavigator();
+
+function BathroomsTabStack() {
+  return (
+    <BathroomStack.Navigator>
+      <BathroomStack.Screen name="BathroomScreen" component={BathroomScreen} />
+      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
+    </BathroomStack.Navigator>
+  );
+}
+
 
 const Tab = createMaterialBottomTabNavigator();
+
 
 export function TabRoutes() {
   return (
@@ -26,7 +41,7 @@ export function TabRoutes() {
       />
       <Tab.Screen
         name="BathroomScreen"
-        component={BathroomScreen}
+        component={ BathroomsTabStack}
         options={{
           tabBarLabel: 'Banheiros',
           tabBarIcon: ({ color }) => (

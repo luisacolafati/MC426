@@ -67,6 +67,18 @@ export const styles = StyleSheet.create({
         height: '60%',
         justifyContent: 'center',
     },
+    learnMoreButton:{
+        backgroundColor: '#f7f7f7',
+        padding: 10,
+        borderRadius: 5,
+        position: 'absolute',
+        bottom: 10, 
+        right: 10,
+    },
+    learnMoreButtonText: {
+        color: '#850A0A',
+        fontSize: 14,
+      },
 
     // BathroomSearchBar
     bathroomSearch: {
