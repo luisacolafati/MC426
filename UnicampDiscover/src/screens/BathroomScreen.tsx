@@ -11,7 +11,7 @@ export function BathroomScreen(){
 
     useEffect(() => {
         const db = getFirestore();
-        const q = collection(db, 'bathrooms');
+        const q = collection(db, 'bathroom');
 
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             const bathroomList: any[] = [];
@@ -25,7 +25,7 @@ export function BathroomScreen(){
     }, []);
 
     const filteredBathrooms = bathrooms.filter((bathroom) =>
-        bathroom.location.toLowerCase().includes(search.toLowerCase())
+        bathroom.instituteLocation.toLowerCase().includes(search.toLowerCase())
     );
 
     const bathroomCards = filteredBathrooms.map((bathroom, index) => {
@@ -42,8 +42,7 @@ export function BathroomScreen(){
             <BathroomCard
             key={index}
             icon={icon}
-            location={bathroom.location}
-            address={bathroom.address}
+            location={bathroom.instituteLocation}
             floor={bathroom.floor}
             />
         );

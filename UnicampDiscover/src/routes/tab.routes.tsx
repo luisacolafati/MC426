@@ -3,6 +3,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
 import { BathroomScreen } from '../screens/BathroomScreen';
+import { DrinkingFuntainScreen } from '../screens/DrinkingFuntainScreen';
+import { LoginScreen } from '../screens/LoginScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -34,6 +36,27 @@ export function TabRoutes() {
           ),
         }}
       />
+      <Tab.Screen
+        name="DrinkingFuntainScreen"
+        component={DrinkingFuntainScreen}
+        options={{
+          tabBarLabel: 'Bebedouros',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="water-pump" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{
+          tabBarLabel: 'Login',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="login" color={color} size={26} />
+          ),
+        }}
+      />
+      
     </Tab.Navigator>
   );
 }

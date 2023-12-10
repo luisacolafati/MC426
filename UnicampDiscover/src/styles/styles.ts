@@ -68,20 +68,55 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    // BathroomSearchBar
-    bathroomSearch: {
-        height: 45,
-        width: '90%',
-        backgroundColor: '#f7f7f7',
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#cccccc',
-        flexDirection: 'row',
-        marginBottom: '2%',
-        paddingHorizontal: '2%',
-        alignItems: 'center',
+    // LoginScreen
+    principal:{
+        flex: 1,
+        height: '100%',
+        width: '100%',
     },
-    bathroomTextInput: {
-        marginHorizontal: '2%'
+    containerLogin:{
+        alignSelf: 'center',     
+    },
+    usuario:{
+        color: '#000',
+        fontSize: 20,
+        marginTop: '20%',
+    },
+    senha:{
+        color: '#000',
+        fontSize: 20,
+        marginTop: '4%', 
+    },
+    inputUsuario:{
+        backgroundColor: '#FFFFFF',
+        borderColor: '#000000',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: '30%',
+        height: '13%', 
+        marginTop: '1%',        
+    },
+    inputSenha:{
+        backgroundColor: '#FFFFFF',
+        borderColor: '#000000',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: '30%',
+        height: '12%',  
+        marginTop: '1%',        
+    },
+    botaoEntrar:{
+        backgroundColor: '#850a0a',
+        borderRadius: 5,
+        justifyContent: 'center',
+        marginTop: '3%',
+        alignSelf: 'center',
+        width: '29%', 
+        height: '20%',     
+    },
+    textoBotaoEntrar:{
+        color: '#FFFFFF',
+        fontSize: 20,
+        textAlign: 'center', 
     },
 });
