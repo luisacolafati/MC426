@@ -1,6 +1,7 @@
-import { BathroomDTO, Gender } from '../../dtos/BathroomDTO'
+import { BathroomDTO } from '../../dtos/BathroomDTO'
 import { DrinkingFountainDTO } from '../../dtos/DrinkingFountainDTO'
 import { Institutes } from '../../enums/InstitutesEnum'
+import { Gender } from '../../enums/GenderEnum'
 import { ReadFileError } from '../../errors/files/ReadFileError'
 import * as FileSystem from 'expo-file-system'
 

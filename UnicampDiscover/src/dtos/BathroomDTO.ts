@@ -1,10 +1,5 @@
+import { Gender } from "../enums/GenderEnum"
 import { Institutes } from "../enums/InstitutesEnum"
-
-export enum Gender {
-    MALE,
-    FEMALE,
-    NEUTRAL
-}
 
 export interface BathroomDTO {
     id: string

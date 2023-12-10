@@ -1,6 +1,7 @@
 import { CollectionNames } from "../../database/CollectionNames"
-import { BathroomDTO, Gender } from "../../dtos/BathroomDTO"
+import { BathroomDTO } from "../../dtos/BathroomDTO"
 import { Institutes } from "../../enums/InstitutesEnum"
+import { Gender } from '../../enums/GenderEnum'
 import { InvalidParamError } from "../../errors/InvalidParamError"
 import { CRUDInBatchService } from "./CRUDInBatchService"
 
