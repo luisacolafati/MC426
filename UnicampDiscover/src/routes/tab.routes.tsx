@@ -2,16 +2,22 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
-import { BathroomScreen } from '../screens/BathroomScreen';
+import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native'; 
 
-const BathroomStack = createStackNavigator();
+export type RootStackParamList = {
+  BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
+  LearnMoreScreen: { location: string, address: string, floor: string }; 
+};
+const BathroomStack = createStackNavigator<RootStackParamList>();
 
-function BathroomsTabStack() {
+export function BathroomsTabStack() {
   return (
     <BathroomStack.Navigator>
-      <BathroomStack.Screen name="BathroomScreen" component={BathroomScreen} />
+      <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} />
       <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
     </BathroomStack.Navigator>
   );

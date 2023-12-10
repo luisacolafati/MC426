@@ -1,12 +1,25 @@
 import React, { useEffect, useState } from 'react'; 
 import { ScrollView, View } from 'react-native'; 
 import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
-import { createStackNavigator } from '@react-navigation/stack';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../routes/tab.routes'; 
+import 'react-native-gesture-handler';
 import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
+ 
 
-export function BathroomScreen({ navigation }){
+
+type BathroomScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'BathroomScreen'
+>;
+
+type Props = {
+  navigation: BathroomScreenNavigationProp;
+};
+
+export function BathroomTabStackScreen({navigation}: Props){
 
     const [bathrooms, setBathrooms] = useState<any[]>([]);
     const [search, setSearch] = useState<string>("");
@@ -21,14 +34,13 @@ export function BathroomScreen({ navigation }){
                 const data = documentSnapshot.data();
                 bathroomList.push(data);
             });
+            console.log(bathroomList);
             setBathrooms(bathroomList);
         });
         return () => unsubscribe();
     }, []);
 
-    const filteredBathrooms = bathrooms.filter((bathroom) =>
-        bathroom.location.toLowerCase().includes(search.toLowerCase())
-    );
+    const filteredBathrooms = bathrooms 
 
     const bathroomCards = filteredBathrooms.map((bathroom, index) => {
         let icon = "";

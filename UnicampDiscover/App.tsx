@@ -5,9 +5,10 @@ import { DocumentData } from 'firebase/firestore/lite';
 //import { styles } from './src/styles/styles';
 import { TabRoutes } from './src/routes/tab.routes';
 import { NavigationContainer } from '@react-navigation/native';
-
 import { styles } from './src/styles/styles';
 import { BathroomScreen } from './src/screens/BathroomScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+
 
 export default function App() {
     const [institutes, setInstitutes] = useState<DocumentData[] | null>(null)

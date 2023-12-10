@@ -1,9 +1,10 @@
+//BathroomCard.tsx
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native'; 
 import { styles } from '../styles/styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import { LearnMoreScreenNavigationProp } from '../screens/LearnMoreScreen'; 
 interface  BathroomCardProps { 
     location: string; 
     address: string;
@@ -12,6 +13,16 @@ interface  BathroomCardProps {
 }
 
 export function BathroomCard({ location, address, floor, icon}: BathroomCardProps) {
+
+    const navigation = useNavigation<LearnMoreScreenNavigationProp>();
+
+    const handleLearnMorePress = () => {
+        navigation.navigate('LearnMoreScreen', {
+          location,
+          address,
+          floor,
+        });
+      };
 
     return(
         <View style={styles.bathroomView}>
@@ -28,13 +39,9 @@ export function BathroomCard({ location, address, floor, icon}: BathroomCardProp
             </View>
 
             //Botão Saiba Mais
-            <TouchableOpacity>
-                onPress={() => {
-                    navigator.navigate('LearnMoreScreen')
-                }}
-                style={styles.learnMoreButton}
-            <Text style={styles.learnMoreButtonText}> Saiba Mais </Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={handleLearnMorePress} style={styles.learnMoreButton}>
+                <Text style={styles.learnMoreButtonText}> Saiba Mais </Text>
+            </TouchableOpacity>
         </View>
     )
 }
