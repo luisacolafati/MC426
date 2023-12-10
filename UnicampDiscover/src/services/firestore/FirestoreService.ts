@@ -30,9 +30,7 @@ export class FirestoreService {
 
     async addDocument (document: FirestoreDocumentDTO): Promise<DocumentReference> {
         try {
-            const aaa = await addDoc(this.collection, document.data)
-            console.log(aaa)
-            return aaa
+            return await addDoc(this.collection, document.data)
         } catch (err) {
             console.log(`[FirestoreService] Error adding document: ${JSON.stringify(err)}`)
             throw new AddDocumentError(err)
@@ -52,7 +50,6 @@ export class FirestoreService {
                     }
                 }
             })
-            console.log(documents)
             return documents
         } catch (err) {
             console.log(`[FirestoreService] Error getting all document from collection ${this.collection.id}: ${JSON.stringify(err)}`)
