@@ -2,11 +2,20 @@ import { CollectionNames } from "../../database/CollectionNames"
 import { BathroomDTO, Gender } from "../../dtos/BathroomDTO"
 import { Institutes } from "../../enums/InstitutesEnum"
 import { InvalidParamError } from "../../errors/InvalidParamError"
-import { CRUDInBatch } from "./CRUDInBatch"
+import { CRUDInBatchService } from "./CRUDInBatchService"
 
-export class BathroomService extends CRUDInBatch {
-    constructor (collectionName: CollectionNames) {
-        super(collectionName)
+export class BathroomService extends CRUDInBatchService {
+    private static instance: any
+    
+    constructor () {
+        super(CollectionNames.BATHROOMS)
+    }
+
+    static getInstance (): BathroomService {
+        if (!this.instance) {
+            this.instance = new BathroomService()
+        }
+        return this.instance
     }
 
     protected validateDocumentsData (documents: BathroomDTO[]): void {
@@ -18,11 +27,11 @@ export class BathroomService extends CRUDInBatch {
             throw new InvalidParamError('gender', 'MALE, FEMALE or NEUTRAL')
         }
 
-        if (documents.some(doc => Object.values(Institutes).includes(doc.data.instituteLocation))) {
+        if (documents.some(doc => !Object.values(Institutes).includes(doc.data.instituteLocation))) {
             throw new InvalidParamError('instituteLocation', `${Object.values(Institutes).join(' or ')}`)
         }
 
-        if (documents.some(doc => !['true', 'false'].includes(doc.data.isAccessible.toString()))) {
+        if (documents.some(doc => typeof doc.data.isAccessible !== 'boolean')) {
             throw new InvalidParamError('isAccessible', 'true or false')
         }
     }
