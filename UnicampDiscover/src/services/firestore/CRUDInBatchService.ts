@@ -3,11 +3,13 @@ import { DrinkingFountainDTO } from "../../dtos/DrinkingFountainDTO"
 import { MissingParamError } from "../../errors/MissingParamError"
 import { FirestoreService } from "./FirestoreService"
 
-export abstract class CRUDInBatch extends FirestoreService {
+export abstract class CRUDInBatchService extends FirestoreService {
     protected abstract validateDocumentsData (documents: BathroomDTO[] | DrinkingFountainDTO[]): void
     
-    protected validateDocumentsIds (documents: BathroomDTO[] | DrinkingFountainDTO[]): void {
-        if (documents.some(doc => !doc.id)) {
+    protected async validateDocumentsIds (documents: BathroomDTO[] | DrinkingFountainDTO[]): Promise<void> {
+        const allDocumentsInCollection = await this.getAllDocuments()
+        const idsOfAllDocumentsInCollection = allDocumentsInCollection.map(doc => doc.id)
+        if (documents.some(doc => !idsOfAllDocumentsInCollection.includes(doc.id))) {
             throw new MissingParamError('id', 'string')
         }
     }
