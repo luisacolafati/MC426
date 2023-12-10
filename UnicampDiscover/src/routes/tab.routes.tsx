@@ -7,10 +7,11 @@ import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'; 
+import { Institutes } from '../enums/InstitutesEnum';
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
-  LearnMoreScreen: { location: string, address: string, floor: string }; 
+  LearnMoreScreen: { location: Institutes, floor: number }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 

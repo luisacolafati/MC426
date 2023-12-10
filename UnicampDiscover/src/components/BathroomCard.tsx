@@ -5,21 +5,20 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from '../styles/styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LearnMoreScreenNavigationProp } from '../screens/LearnMoreScreen'; 
+import { Institutes } from '../enums/InstitutesEnum';
 interface  BathroomCardProps { 
-    location: string; 
-    address: string;
-    floor: string; 
+    location: Institutes; 
+    floor: number; 
     icon: string;
 }
 
-export function BathroomCard({ location, address, floor, icon}: BathroomCardProps) {
+export function BathroomCard({ location, floor, icon}: BathroomCardProps) {
 
     const navigation = useNavigation<LearnMoreScreenNavigationProp>();
 
     const handleLearnMorePress = () => {
         navigation.navigate('LearnMoreScreen', {
           location,
-          address,
           floor,
         });
       };
@@ -32,13 +31,10 @@ export function BathroomCard({ location, address, floor, icon}: BathroomCardProp
             <View style={styles.bathroomInternView}>
                 <Text style={styles.titleBathroomCard}>Localização: </Text>
                 <Text style={styles.textBathroomCard}>{location}</Text>
-                <Text style={styles.titleBathroomCard}>Endereço: </Text>
-                <Text style={styles.textBathroomCard}>{address}</Text>
                 <Text style={styles.titleBathroomCard}>Andar: </Text>
                 <Text style={styles.textBathroomCard}>{floor}</Text>
             </View>
 
-            //Botão Saiba Mais
             <TouchableOpacity onPress={handleLearnMorePress} style={styles.learnMoreButton}>
                 <Text style={styles.learnMoreButtonText}> Saiba Mais </Text>
             </TouchableOpacity>

@@ -19,12 +19,11 @@ type LearnProps = {
 }
 
 export function LearnMoreScreen({ navigation, route }: LearnProps){
-    const { location, address, floor } = route.params;
+    const { location, floor } = route.params;
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text>Learn More screen</Text>
           <Text>Location: {location}</Text>
-          <Text>Address: {address}</Text>
           <Text>Floor: {floor}</Text>
           <Button
             title="Voltar"
