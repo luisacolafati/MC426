@@ -1,5 +1,5 @@
 import { CollectionNames } from "../../database/CollectionNames"
-import { BathroomDTO } from "../../types/BathroomDTO"
+import { Bathroom } from "../../types/Bathroom"
 import { Institutes } from "../../enums/InstitutesEnum"
 import { Gender } from '../../enums/GenderEnum'
 import { InvalidParamError } from "../../errors/InvalidParamError"
@@ -19,7 +19,7 @@ export class BathroomService extends CRUDInBatchService {
         return this.instance
     }
 
-    protected validateDocumentsData (documents: BathroomDTO[]): void {
+    protected validateDocumentsData (documents: Bathroom[]): void {
         if (documents.some(doc => isNaN(doc.data.floor))) {
             throw new InvalidParamError('floor', 'number')
         }

@@ -8,8 +8,8 @@ import { CRUDOperations } from "../../enums/CRUDOperationsEnum"
 import { CRUDInBatchService } from "../../services/firestore/CRUDInBatchService"
 import { BathroomService } from "../../services/firestore/BathroomService"
 import { DrinkingFountainService } from "../../services/firestore/DrinkingFountainService"
-import { BathroomDTO } from "../../types/BathroomDTO"
-import { DrinkingFountainDTO } from "../../types/DrinkingFountainDTO"
+import { Bathroom } from "../../types/Bathroom"
+import { DrinkingFountain } from "../../types/DrinkingFountain"
 import { convertFirestoreDocumentToCSVString } from "../../utils/ConvertJSONToCSVString"
 import * as Clipboard from 'expo-clipboard'
 
@@ -29,7 +29,7 @@ const CSVFileInstructionsByCollectionAndOperation = {
 export default function CRUDScreen () {
     const [collection, setCollection] = useState<string>(CollectionNames.BATHROOMS)
     const [operation, setOperation] = useState<string>(CRUDOperations.CREATE)
-    const [fileContent, setFileContent] = useState<BathroomDTO[] | DrinkingFountainDTO[]>([])
+    const [fileContent, setFileContent] = useState<Bathroom[] | DrinkingFountain[]>([])
 
     const getCollectionNameInPortuguese = (collection: string): string => {
         return collection === CollectionNames.BATHROOMS ? 'banheiros' : 'bebedouros'

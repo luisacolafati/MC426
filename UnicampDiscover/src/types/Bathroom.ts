@@ -1,7 +1,7 @@
 import { Gender } from "../enums/GenderEnum"
 import { Institutes } from "../enums/InstitutesEnum"
 
-export interface BathroomDTO {
+export type Bathroom = {
     id: string
     data: {
         floor: number

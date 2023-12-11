@@ -1,5 +1,5 @@
 import { CollectionNames } from "../../database/CollectionNames"
-import { DrinkingFountainDTO } from "../../types/DrinkingFountainDTO"
+import { DrinkingFountainDTO } from "../../types/DrinkingFountain"
 import { Institutes } from "../../enums/InstitutesEnum"
 import { InvalidParamError } from "../../errors/InvalidParamError"
 import { CRUDInBatchService } from "./CRUDInBatchService"

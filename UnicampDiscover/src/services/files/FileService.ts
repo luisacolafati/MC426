@@ -1,5 +1,5 @@
-import { BathroomDTO } from '../../types/BathroomDTO'
-import { DrinkingFountainDTO } from '../../types/DrinkingFountainDTO'
+import { Bathroom } from '../../types/Bathroom'
+import { DrinkingFountain } from '../../types/DrinkingFountain'
 import { Institutes } from '../../enums/InstitutesEnum'
 import { Gender } from '../../enums/GenderEnum'
 import { ReadFileError } from '../../errors/files/ReadFileError'
@@ -30,7 +30,7 @@ export class FileService {
         }
     }
     
-    private convertCSVStringToJSON (csvString: string): BathroomDTO[] | DrinkingFountainDTO[] {
+    private convertCSVStringToJSON (csvString: string): Bathroom[] | DrinkingFountain[] {
         const json: any[] = []
 
         const csvLines = csvString.split(/\r?\n/)
@@ -58,7 +58,7 @@ export class FileService {
         return json
     }
 
-    async readCSVFileFromUri (fileUri: string): Promise<BathroomDTO[] | DrinkingFountainDTO[]> {
+    async readCSVFileFromUri (fileUri: string): Promise<Bathroom[] | DrinkingFountain[]> {
         try {
             console.log(`[FileService] Reading file from uri ${fileUri}`)
             const csvString = await FileSystem.readAsStringAsync(fileUri)

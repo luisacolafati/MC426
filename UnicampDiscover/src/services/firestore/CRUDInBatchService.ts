@@ -1,12 +1,12 @@
-import { BathroomDTO } from "../../types/BathroomDTO"
-import { DrinkingFountainDTO } from "../../types/DrinkingFountainDTO"
+import { Bathroom } from "../../types/Bathroom"
+import { DrinkingFountain } from "../../types/DrinkingFountain"
 import { MissingParamError } from "../../errors/MissingParamError"
 import { FirestoreService } from "./FirestoreService"
 
 export abstract class CRUDInBatchService extends FirestoreService {
-    protected abstract validateDocumentsData (documents: BathroomDTO[] | DrinkingFountainDTO[]): void
+    protected abstract validateDocumentsData (documents: Bathroom[] | DrinkingFountain[]): void
     
-    protected async validateDocumentsIds (documents: BathroomDTO[] | DrinkingFountainDTO[]): Promise<void> {
+    protected async validateDocumentsIds (documents: Bathroom[] | DrinkingFountain[]): Promise<void> {
         const allDocumentsInCollection = await this.getAllDocuments()
         const idsOfAllDocumentsInCollection = allDocumentsInCollection.map(doc => doc.id)
         if (documents.some(doc => !idsOfAllDocumentsInCollection.includes(doc.id))) {
@@ -14,7 +14,7 @@ export abstract class CRUDInBatchService extends FirestoreService {
         }
     }
 
-    async addDocumentsInBatch (documents: BathroomDTO[] | DrinkingFountainDTO[]): Promise<void> {
+    async addDocumentsInBatch (documents: Bathroom[] | DrinkingFountain[]): Promise<void> {
         this.validateDocumentsData(documents)
         
         await Promise.all(documents.map(async (doc) => {
@@ -22,7 +22,7 @@ export abstract class CRUDInBatchService extends FirestoreService {
         }))
     }
 
-    async updateDocumentsInBatch (documents: BathroomDTO[]  | DrinkingFountainDTO[]): Promise<void> {
+    async updateDocumentsInBatch (documents: Bathroom[]  | DrinkingFountain[]): Promise<void> {
         this.validateDocumentsIds(documents)
         this.validateDocumentsData(documents)
         
@@ -31,7 +31,7 @@ export abstract class CRUDInBatchService extends FirestoreService {
         }))
     }
 
-    async deleteDocumentsInBatch (documents: BathroomDTO[] | DrinkingFountainDTO[]): Promise<void> {
+    async deleteDocumentsInBatch (documents: Bathroom[] | DrinkingFountain[]): Promise<void> {
         this.validateDocumentsIds(documents)
         
         await Promise.all(documents.map(async (doc) => {
