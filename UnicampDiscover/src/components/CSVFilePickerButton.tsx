@@ -2,8 +2,8 @@ import * as DocumentPicker from 'expo-document-picker';
 import { Dispatch, SetStateAction } from 'react';
 import { View, Button, Alert } from 'react-native';
 import { FileService } from '../services/files/FileService';
-import { BathroomDTO } from '../dtos/BathroomDTO';
-import { DrinkingFountainDTO } from '../dtos/DrinkingFountainDTO';
+import { BathroomDTO } from '../types/BathroomDTO';
+import { DrinkingFountainDTO } from '../types/DrinkingFountainDTO';
 
 export function CSVFilePickerButton ({ setFileContent }: { setFileContent: Dispatch<SetStateAction<BathroomDTO[] | DrinkingFountainDTO[]>> }) {
   const fileService = FileService.getInstance()  

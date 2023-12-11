@@ -14,7 +14,7 @@ import { AddDocumentError } from "../../errors/firestore/AddDocumentError";
 import { UpdateDocumentError } from "../../errors/firestore/UpdateDocumentError";
 import { DeleteDocumentError } from "../../errors/firestore/DeleteDocumentError";
 import { GetAllDocumentsError } from "../../errors/firestore/GetAllDocumentsError";
-import { FirestoreDocumentDTO } from "../../dtos/FirestoreDocumentDTO";
+import { FirestoreDocument } from "../../types/FirestoreDocument";
 
 export class FirestoreService {
     private readonly db = getFirestore(firebaseApp)
@@ -24,11 +24,11 @@ export class FirestoreService {
         this.collection = collection(this.db, collectionName)
     }
 
-    private getDocumentReference (document: FirestoreDocumentDTO): DocumentReference {
+    private getDocumentReference (document: FirestoreDocument): DocumentReference {
         return doc(this.collection, document.id)
     }
 
-    async addDocument (document: FirestoreDocumentDTO): Promise<DocumentReference> {
+    async addDocument (document: FirestoreDocument): Promise<DocumentReference> {
         try {
             return await addDoc(this.collection, document.data)
         } catch (err) {
@@ -57,7 +57,7 @@ export class FirestoreService {
         }
     }
 
-    async updateDocument (document: FirestoreDocumentDTO): Promise<void> {
+    async updateDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
             await updateDoc(documentReference, document.data)
@@ -67,7 +67,7 @@ export class FirestoreService {
         }
     }
 
-    async deleteDocument (document: FirestoreDocumentDTO): Promise<void> {
+    async deleteDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
             await deleteDoc(documentReference)

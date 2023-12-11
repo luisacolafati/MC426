@@ -1,5 +1,5 @@
 import { CollectionNames } from "../../database/CollectionNames"
-import { BathroomDTO } from "../../dtos/BathroomDTO"
+import { BathroomDTO } from "../../types/BathroomDTO"
 import { Institutes } from "../../enums/InstitutesEnum"
 import { Gender } from '../../enums/GenderEnum'
 import { InvalidParamError } from "../../errors/InvalidParamError"

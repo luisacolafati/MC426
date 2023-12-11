@@ -1,5 +1,5 @@
-import { BathroomDTO } from "../../dtos/BathroomDTO"
-import { DrinkingFountainDTO } from "../../dtos/DrinkingFountainDTO"
+import { BathroomDTO } from "../../types/BathroomDTO"
+import { DrinkingFountainDTO } from "../../types/DrinkingFountainDTO"
 import { MissingParamError } from "../../errors/MissingParamError"
 import { FirestoreService } from "./FirestoreService"
 
