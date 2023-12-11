@@ -4,7 +4,7 @@ import { getFirestore, collection, onSnapshot, query, where } from 'firebase/fir
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../routes/tab.routes'; 
 import 'react-native-gesture-handler';
-import { BathroomCard } from '..\components\BathroomCard.tsx';
+import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
 import { BathroomService } from '../services/firestore/BathroomService'; 

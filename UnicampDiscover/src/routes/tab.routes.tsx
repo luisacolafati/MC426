@@ -2,9 +2,42 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
-import { BathroomScreen } from '../screens/BathroomScreen';
+import { BathroomTabStackScreen } from '../screens/BathroomScreen';
+import { LearnMoreScreen } from '../screens/LearnMoreScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native'; 
+import { Institutes } from '../enums/InstitutesEnum';
+import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
+
+export type RootStackParamList = {
+  BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
+  DrinkingFountainScreen: undefined,
+  LearnMoreScreen: { location: Institutes, floor: number }; 
+};
+const BathroomStack = createStackNavigator<RootStackParamList>();
+const DrinkingFountainStack = createStackNavigator<RootStackParamList>();
+
+export function BathroomsTabStack() {
+  return (
+    <BathroomStack.Navigator>
+      <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} />
+      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
+    </BathroomStack.Navigator>
+  );
+}
+
+export function DrinkingFountainsTabStack() {
+  return (
+    <DrinkingFountainStack.Navigator>
+      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
+      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
+    </DrinkingFountainStack.Navigator>
+  );
+}
 
 const Tab = createMaterialBottomTabNavigator();
+
 
 export function TabRoutes() {
   return (
@@ -26,11 +59,21 @@ export function TabRoutes() {
       />
       <Tab.Screen
         name="BathroomScreen"
-        component={BathroomScreen}
+        component={ BathroomsTabStack}
         options={{
           tabBarLabel: 'Banheiros',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="toilet" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DrinkingFountainScreen"
+        component={ DrinkingFountainsTabStack}
+        options={{
+          tabBarLabel: 'Bebedouros',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="water-pump" color={color} size={26} />
           ),
         }}
       />

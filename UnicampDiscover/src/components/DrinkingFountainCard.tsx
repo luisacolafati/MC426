@@ -6,13 +6,13 @@ import { styles } from '../styles/styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LearnMoreScreenNavigationProp } from '../screens/LearnMoreScreen'; 
 import { Institutes } from '../enums/InstitutesEnum';
-interface  BathroomCardProps { 
+interface  DrinkingFountainCardProps { 
     location: Institutes; 
     floor: number; 
     icon: string;
 }
 
-export function BathroomCard({ location, floor, icon}: BathroomCardProps) {
+export function DrinkingFountainCard({ location, floor, icon}: DrinkingFountainCardProps) {
 
     const navigation = useNavigation<LearnMoreScreenNavigationProp>();
 
