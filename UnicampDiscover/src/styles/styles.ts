@@ -121,15 +121,15 @@ export const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         position: 'absolute', 
-        top:80, 
+        top:100, 
         left: 30,
     },
     goBackButton: {
-        fontSize: 17,
+        fontSize: 14,
         fontWeight: 'bold',
         position: 'absolute', 
         left: 30,
-        top: 667,
+        top: 50,
         flexDirection: 'row', 
         justifyContent: 'space-between',
     }
