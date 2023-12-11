@@ -1,4 +1,4 @@
-import { Text, View, Alert, ScrollView } from "react-native"
+import { Text, View, Alert, ScrollView, Button } from "react-native"
 import { styles } from './styles/styles'
 import { RadioButton } from 'react-native-paper'
 import { useEffect, useState } from "react"
@@ -8,27 +8,29 @@ import { CRUDOperations } from "../../enums/CRUDOperationsEnum"
 import { CRUDInBatchService } from "../../services/firestore/CRUDInBatchService"
 import { BathroomService } from "../../services/firestore/BathroomService"
 import { DrinkingFountainService } from "../../services/firestore/DrinkingFountainService"
-import { BathroomDTO } from "../../dtos/BathroomDTO"
-import { DrinkingFountainDTO } from "../../dtos/DrinkingFountainDTO"
+import { BathroomDTO } from "../../types/BathroomDTO"
+import { DrinkingFountainDTO } from "../../types/DrinkingFountainDTO"
+import { convertFirestoreDocumentToCSVString } from "../../utils/ConvertJSONToCSVString"
+import * as Clipboard from 'expo-clipboard'
 
 const CSVFileInstructionsByCollectionAndOperation = {
-    [CollectionNames.BATHROOMS]: {
-        [CRUDOperations.INSERT]: 'Seu arquivo deve conter as colunas: id (vazia), instituteLocation (string), floor (number), gender (MALE, FEMALE ou NEUTRAL) e isAccessible (TRUE ou FALSE)',
-        [CRUDOperations.UPDATE]: 'Seu arquivo deve conter as colunas: id (string), instituteLocation (string), floor (number), gender (MALE, FEMALE ou NEUTRAL) e isAccessible (TRUE ou FALSE)',
-        [CRUDOperations.DELETE]: 'Seu arquivo só precisa conter a coluna id (string)'
+    [CollectionNames.BATHROOMS as string]: {
+        [CRUDOperations.CREATE as string]: 'Seu arquivo deve conter as colunas: id (vazia), instituteLocation (string), floor (number), gender (MALE, FEMALE ou NEUTRAL) e isAccessible (TRUE ou FALSE)',
+        [CRUDOperations.UPDATE as string]: 'Seu arquivo deve conter as colunas: id (string), instituteLocation (string), floor (number), gender (MALE, FEMALE ou NEUTRAL) e isAccessible (TRUE ou FALSE)',
+        [CRUDOperations.DELETE as string]: 'Seu arquivo só precisa conter a coluna id (string)'
     },
-    [CollectionNames.DRINKING_FOUNTAIN]: {
-        [CRUDOperations.INSERT]: 'Seu arquivo deve conter as seguintes colunas: id (vazia), instituteLocation (string) e floor (number)',
-        [CRUDOperations.UPDATE]: 'Seu arquivo deve conter as seguintes colunas: id (string), instituteLocation (string) e floor (number)',
-        [CRUDOperations.DELETE]: 'Seu arquivo só precisa conter a coluna id (string)'
+    [CollectionNames.DRINKING_FOUNTAIN as string]: {
+        [CRUDOperations.CREATE as string]: 'Seu arquivo deve conter as seguintes colunas: id (vazia), instituteLocation (string) e floor (number)',
+        [CRUDOperations.UPDATE as string]: 'Seu arquivo deve conter as seguintes colunas: id (string), instituteLocation (string) e floor (number)',
+        [CRUDOperations.DELETE as string]: 'Seu arquivo só precisa conter a coluna id (string)'
     }
 }
 
 export default function CRUDScreen () {
     const [collection, setCollection] = useState<string>(CollectionNames.BATHROOMS)
-    const [operation, setOperation] = useState<string>(CRUDOperations.INSERT)
+    const [operation, setOperation] = useState<string>(CRUDOperations.CREATE)
     const [fileContent, setFileContent] = useState<BathroomDTO[] | DrinkingFountainDTO[]>([])
-    
+
     const getCollectionNameInPortuguese = (collection: string): string => {
         return collection === CollectionNames.BATHROOMS ? 'banheiros' : 'bebedouros'
     }
@@ -37,17 +39,36 @@ export default function CRUDScreen () {
         return collection === CollectionNames.BATHROOMS ? BathroomService.getInstance() : DrinkingFountainService.getInstance()
     }
 
+    const copyDocumentsAsCSVStringToClipboard = async () => {
+        try {
+            const CRUDService = getCRUDServiceByCollection(collection)
+            const documents = await CRUDService.getAllDocuments()
+            await Clipboard.setStringAsync(convertFirestoreDocumentToCSVString(documents))
+            Alert.alert(
+                'Sucesso',
+                'Dados copiados!'
+            )
+        } catch (err) {
+            Alert.alert(
+                'Erro',
+                'Infelizmente, não foi possível realizar a leitura solicitada. Por favor, tente novamente e, caso o problema persista, entre em contato com um dos mantenedores do projeto!'
+            )
+        }
+    }
+
     useEffect(() => {
         const executeCRUDOperation = async (): Promise<void> => {
             const CRUDService = getCRUDServiceByCollection(collection)
 
             switch (operation) {
-                case CRUDOperations.INSERT:
+                case CRUDOperations.CREATE:
                     return await CRUDService.addDocumentsInBatch(fileContent)
                 case CRUDOperations.UPDATE:
                     return await CRUDService.updateDocumentsInBatch(fileContent)
                 case CRUDOperations.DELETE:
                     return await CRUDService.deleteDocumentsInBatch(fileContent)
+                default:
+                    return
             }
         }
 
@@ -122,8 +143,12 @@ export default function CRUDScreen () {
                         value={operation}
                     >
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <RadioButton value={CRUDOperations.INSERT} />
+                            <RadioButton value={CRUDOperations.CREATE} />
                             <Text>Inserção</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <RadioButton value={CRUDOperations.READ} />
+                            <Text>Leitura</Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <RadioButton value={CRUDOperations.UPDATE} />
@@ -136,15 +161,32 @@ export default function CRUDScreen () {
                     </RadioButton.Group>
                 </View>
 
-                <View
-                    style={styles.infoCardView}
-                    >
-                        <Text style={styles.infoCardText}>Atenção! {(CSVFileInstructionsByCollectionAndOperation as any)[collection][operation]}</Text>
-                </View>
-                
-                <CSVFilePickerButton
-                    setFileContent={setFileContent}
-                />
+                {(operation === CRUDOperations.READ) ? (
+                    <View>
+                        <View
+                        style={styles.infoCardView}
+                        >
+                            <Text style={styles.infoCardText}>Atenção! Após clicar no botão abaixo, iremos ler todos os dados de {getCollectionNameInPortuguese(collection)}. Eles serão copiados para sua área de transferência e poderão ser colados em qualquer lugar</Text>
+                        </View>
+                        <Button
+                            title='Clique aqui para ler e copiar os dados'
+                            onPress={copyDocumentsAsCSVStringToClipboard}
+                        />
+                    </View>
+                ) : (
+                    <View>
+                        <View
+                        style={styles.infoCardView}
+                        >
+                            <Text style={styles.infoCardText}>Atenção! {CSVFileInstructionsByCollectionAndOperation[collection][operation]}</Text>
+                        </View>
+                        
+                        <CSVFilePickerButton
+                            setFileContent={setFileContent}
+                        />    
+                    </View>
+                )
+            }
             </View>
         </ScrollView>
     )

@@ -1,5 +1,6 @@
 export enum CRUDOperations {
-    INSERT = 'inserção',
+    CREATE = 'inserção',
+    READ = 'leitura',
     UPDATE = 'atualização',
     DELETE = 'exclusão'
 }
