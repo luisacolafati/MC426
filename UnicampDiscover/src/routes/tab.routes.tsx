@@ -11,15 +11,15 @@ import { Institutes } from '../enums/InstitutesEnum';
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
-  LearnMoreScreen: { location: Institutes, floor: number }; 
+  LearnMoreScreen: { location: Institutes, floor: number, icon: string }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 
 export function BathroomsTabStack() {
   return (
     <BathroomStack.Navigator>
-      <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} />
-      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
+      <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} options ={{headerShown: false}}  />
+      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} options ={{headerShown: false}}  />
     </BathroomStack.Navigator>
   );
 }

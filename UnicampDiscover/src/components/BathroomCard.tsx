@@ -20,6 +20,7 @@ export function BathroomCard({ location, floor, icon}: BathroomCardProps) {
         navigation.navigate('LearnMoreScreen', {
           location,
           floor,
+          icon,
         });
       };
 

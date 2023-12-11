@@ -78,6 +78,8 @@ export const styles = StyleSheet.create({
     learnMoreButtonText: {
         color: '#850A0A',
         fontSize: 14,
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
       },
 
     // BathroomSearchBar
@@ -96,4 +98,22 @@ export const styles = StyleSheet.create({
     bathroomTextInput: {
         marginHorizontal: '2%'
     },
+
+    learnMoreTitle:{
+        color: '#850A0A',
+        fontSize: 30,
+        fontWeight: 'bold',
+        position: 'absolute', 
+        top:80, 
+        left: 30,
+    },
+    goBackButton: {
+        fontSize: 17,
+        fontWeight: 'bold',
+        position: 'absolute', 
+        left: 30,
+        top: 667,
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+    }
 });
