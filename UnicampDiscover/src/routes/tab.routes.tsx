@@ -11,7 +11,7 @@ import { Institutes } from '../enums/InstitutesEnum';
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
-  LearnMoreScreen: { location: Institutes, floor: number, icon: string }; 
+  LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 

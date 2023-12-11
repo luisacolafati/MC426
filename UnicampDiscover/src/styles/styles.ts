@@ -80,7 +80,24 @@ export const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         textDecorationLine: 'underline',
-      },
+    },
+    espacamento:{
+        marginHorizontal: '0.4%'
+    },
+    direcao:{
+        flexDirection: 'row'
+    },
+    alinhamento:{
+        alignItems: 'flex-end',
+        alignSelf: 'flex-start',
+        left: 100,
+        marginTop: '4%'
+    },
+    avaliacao: {
+        marginTop: '50%',
+        alignItems: 'center'
+
+    },
 
     // BathroomSearchBar
     bathroomSearch: {

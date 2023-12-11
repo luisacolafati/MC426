@@ -23,9 +23,10 @@ type Props = {
 
 export function BathroomTabStackScreen({navigation}: Props){
 
+   
     const [search, setSearch] = useState<string>("");
     const [bathrooms, setBathrooms] = useState<BathroomDTO[]>([]);
-    const bathroomsService = new BathroomService(CollectionNames.BATHROOMS); 
+    const bathroomsService = new BathroomService(CollectionNames.BATHROOMS);
 
     useEffect(() => {
         const getBathrooms = async()=>{
@@ -34,7 +35,7 @@ export function BathroomTabStackScreen({navigation}: Props){
         getBathrooms()
     },[] )
 
-    const bathroomCards = bathrooms.map((bathroom, index) => {
+    const bathroomCards = bathrooms.map((bathroom) => {
         let icon = "";
         if(bathroom.data.gender === Gender.FEMALE) {
             icon = "human-female"
@@ -46,10 +47,10 @@ export function BathroomTabStackScreen({navigation}: Props){
 
         return (
             <BathroomCard
-            key={index}
             icon={icon}
             location={bathroom.data.instituteLocation}
             floor={bathroom.data.floor}
+            avaliacao={bathroom.data.avaliacao}
             />
         );
     });
