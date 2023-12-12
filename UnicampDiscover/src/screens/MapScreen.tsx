@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { SafeAreaView, StyleSheet, View, Text, Image } from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
 import {requestForegroundPermissionsAsync, getCurrentPositionAsync, LocationObject, watchHeadingAsync, watchPositionAsync, LocationAccuracy} from 'expo-location'
 import { Section } from 'react-native-paper/lib/typescript/src/components/List/List';
 
@@ -18,6 +18,7 @@ export function MapScreen() {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [mapRegion, setMapRegion] = useState(initialRegion);
   const [institutes, setInstitutes] = useState<any[]>([])
+  
 
   const markerCoordinates = {
     latitude: -22.8135,
@@ -31,6 +32,12 @@ export function MapScreen() {
     if (granted) {
       const posicao = await getCurrentPositionAsync();
       setLocation(posicao);
+      setMapRegion({
+        latitude: posicao.coords.latitude,
+        longitude: posicao.coords.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.001
+        })
     }
   }
 
@@ -60,6 +67,7 @@ export function MapScreen() {
       //  latitudeDelta: 0.001,
       //  longitudeDelta: 0.001
       //})
+
     });
   }, [])
 
@@ -71,18 +79,24 @@ export function MapScreen() {
       id: 1,
       nome: "IC3",
       latitude: -22.81362,
-      longitude: -47.06391
+      longitude: -47.06391,
+      banheiros : 3,
+      bebedouros: 1
     }, {
       id:2,
       nome:"IE",
       latitude: -22.81493,
-      longitude: -47.0658
+      longitude: -47.0658,
+      banheiros : 3,
+      bebedouros: 1
     },
     {
       id:3,
       nome:"IMECC",
       latitude: -22.81576,
-      longitude: -47.06779
+      longitude: -47.06779,
+      banheiros : 3,
+      bebedouros: 1
     }
   ]
 
@@ -111,8 +125,18 @@ return (
             latitude: institute.latitude,
             longitude: institute.longitude,
           }}
-          title={institute.nome}
-        />
+          //title={institute.nome}
+        >
+          <Callout>
+            <View>
+              <Text>{institute.nome}</Text>
+              <View>
+              <Text>Banheiros: {institute.banheiros} </Text>  
+              </View>
+              <Text>Bebedouros: {institute.bebedouros}</Text>
+            </View>
+          </Callout>
+        </Marker>
       ))}
     
   </MapView>
@@ -139,4 +163,8 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
+  imagem: {
+    width: 25,
+    height: 25,
+  }
 });
