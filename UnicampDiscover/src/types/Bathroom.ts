@@ -8,5 +8,6 @@ export type Bathroom = {
         gender: Gender
         isAccessible: boolean
         instituteLocation: Institutes
+        avaliacao: number
     }
 }

@@ -1,5 +1,5 @@
 import { CollectionNames } from "../../database/CollectionNames"
-import { DrinkingFountainDTO } from "../../types/DrinkingFountain"
+import { DrinkingFountain } from "../../types/DrinkingFountain"
 import { Institutes } from "../../enums/InstitutesEnum"
 import { InvalidParamError } from "../../errors/InvalidParamError"
 import { CRUDInBatchService } from "./CRUDInBatchService"
@@ -18,7 +18,7 @@ export class DrinkingFountainService extends CRUDInBatchService {
         return this.instance
     }
 
-    protected validateDocumentsData (documents: DrinkingFountainDTO[]): void {
+    protected validateDocumentsData (documents: DrinkingFountain[]): void {
         if (documents.some(doc => isNaN(doc.data.floor))) {
             throw new InvalidParamError('floor', 'number')
         }
