@@ -33,3 +33,9 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# firebase log
+firestore-debug.log
+
+# vscode
+settings.json
