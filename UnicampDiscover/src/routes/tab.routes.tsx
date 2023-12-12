@@ -8,10 +8,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { Institutes } from '../enums/InstitutesEnum';
+import { BathroomScreen } from '../screens/BathroomScreen';
+import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
+import CRUDScreen from '../screens/Admin/CRUDScreen';
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
   LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
+  BathroomFiltersScreen: undefined,
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 
@@ -20,12 +24,12 @@ export function BathroomsTabStack() {
     <BathroomStack.Navigator>
       <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} options ={{headerShown: false}}  />
       <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} options ={{headerShown: false}}  />
+      <BathroomStack.Screen name="BathroomFiltersScreen" component={BathroomFiltersScreen} options ={{headerShown: false}}  />
     </BathroomStack.Navigator>
   );
 }
 
-import { BathroomScreen } from '../screens/BathroomScreen';
-import CRUDScreen from '../screens/Admin/CRUDScreen';
+
 
 const Tab = createMaterialBottomTabNavigator();
 

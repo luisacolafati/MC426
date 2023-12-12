@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'; 
-import { ScrollView, View } from 'react-native'; 
+import { ScrollView, View, Button} from 'react-native'; 
 import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../routes/tab.routes'; 
@@ -56,12 +56,28 @@ export function BathroomTabStackScreen({navigation}: Props){
     });
     
         return (
-            <ScrollView style={styles.bathroomScrollView}>
-                <BathroomSearchBar 
-                search={search}
-                setSearch={setSearch}
-                />
-                {bathroomCards}
-            </ScrollView>
+            <View style={styles.container}>
+                <ScrollView style={styles.bathroomScrollView}>
+                    <BathroomSearchBar
+                        search={search}
+                        setSearch={setSearch}
+                    />
+                    <View style={styles.filterButtonContainer}>
+                        <Button
+                            title="Filtros"
+                            color='#850a0a'
+                            onPress={() => navigation.navigate('BathroomFiltersScreen')}
+                        />
+                    </View>
+                    <View style={styles.filterCleanButton}>
+                        <Button
+                            title="Limpar"
+                            color='#090909'
+                           // onPress={() => navigation.navigate('BathroomFiltersScreen')}
+                        />
+                    </View>
+                    {bathroomCards}
+                </ScrollView>
+            </View>
         );
 }
