@@ -6,6 +6,7 @@ export type DrinkingFountain = {
     data: {
         floor: number
         instituteLocation: Institutes
+        avaliacao: [number, number]
     }
     rating: Rating
 }
