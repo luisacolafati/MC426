@@ -24,6 +24,8 @@ export function BathroomsTabStack() {
   );
 }
 
+import { BathroomScreen } from '../screens/BathroomScreen';
+import CRUDScreen from '../screens/Admin/CRUDScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -32,9 +34,9 @@ export function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      activeColor="#850a0a"
-      inactiveColor="#babab7"
-      style={{ backgroundColor: "#fcfcfa" }}
+      activeColor="#A8BBB0"
+      inactiveColor="#850A0A"
+      barStyle={{ backgroundColor: "#ffffff" }}
     >
       <Tab.Screen
         name="MapScreen"
@@ -53,6 +55,16 @@ export function TabRoutes() {
           tabBarLabel: 'Banheiros',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="toilet" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="CRUDScreen"
+        component={CRUDScreen}
+        options={{
+          tabBarLabel: 'CRUD',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="database" color={color} size={26} />
           ),
         }}
       />

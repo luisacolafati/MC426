@@ -1,6 +1,6 @@
 import { Institutes } from "../enums/InstitutesEnum"
 
-export interface DrinkingFountainDTO {
+export type DrinkingFountain = {
     id: string
     data: {
         floor: number

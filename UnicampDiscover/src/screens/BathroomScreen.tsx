@@ -8,9 +8,9 @@ import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
 import { BathroomService } from '../services/firestore/BathroomService'; 
-import { CollectionNames } from '../database/CollectionNames';
-import { BathroomDTO } from '../dtos/BathroomDTO';
-import { Gender } from '../dtos/BathroomDTO';
+import { CollectionNames } from "../database/CollectionNames";
+import { Bathroom } from "../types/Bathroom";
+import { Gender } from "../enums/GenderEnum";
 
 type BathroomScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -25,8 +25,8 @@ export function BathroomTabStackScreen({navigation}: Props){
 
    
     const [search, setSearch] = useState<string>("");
-    const [bathrooms, setBathrooms] = useState<BathroomDTO[]>([]);
-    const bathroomsService = new BathroomService(CollectionNames.BATHROOMS);
+    const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
+    const bathroomsService =  BathroomService.getInstance();
 
     useEffect(() => {
         const getBathrooms = async()=>{
