@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "expo": "^49.0.21",
+    "expo-clipboard": "~4.3.1",
     "metro-config": "^0.80.1",
     "metro-core": "^0.80.1",
     "yarn": "^1.22.21"
