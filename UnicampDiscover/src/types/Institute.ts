@@ -1,9 +1,12 @@
 import { InstituteNames } from "../enums/InstituteNamesEnum"
 
 export type Institute = {
-    name: InstituteNames
-    location: {
-        latitude: number
-        longitude: number
+    id: string
+    data: {
+        name: InstituteNames
+        location: {
+            latitude: number
+            longitude: number
+        }
     }
 }
