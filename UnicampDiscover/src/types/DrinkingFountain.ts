@@ -1,9 +1,9 @@
-import { Institutes } from "../enums/InstitutesEnum"
+import { InstituteNames } from "../enums/InstituteNamesEnum"
 
 export type DrinkingFountain = {
     id: string
     data: {
         floor: number
-        instituteLocation: Institutes
+        instituteLocation: InstituteNames
     }
 }
