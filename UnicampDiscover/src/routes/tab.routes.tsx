@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
 import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
+import { LearnMoreScreenDrinkingFountain } from '../screens/LearnMoreDrinkingFountainScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'; 
@@ -13,7 +14,7 @@ import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScree
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
   DrinkingFountainScreen: undefined,
-  LearnMoreScreen: { location: Institutes, floor: number }; 
+  LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: [number, number] }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 const DrinkingFountainStack = createStackNavigator<RootStackParamList>();
@@ -31,7 +32,7 @@ export function DrinkingFountainsTabStack() {
   return (
     <DrinkingFountainStack.Navigator>
       <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
-      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
+      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
     </DrinkingFountainStack.Navigator>
   );
 }

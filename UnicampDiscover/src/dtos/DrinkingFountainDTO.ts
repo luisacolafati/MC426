@@ -5,5 +5,6 @@ export interface DrinkingFountainDTO {
     data: {
         floor: number
         instituteLocation: Institutes
+        avaliacao: [number, number]
     }
 }

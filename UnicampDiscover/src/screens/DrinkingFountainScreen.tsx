@@ -37,12 +37,16 @@ export function DrinkingFountainTabStackScreen({navigation}: Props){
     const drinkingFountainCards = drinkingFountains.map((drinking_fountain, index) => {
         let icon = "water-pump";
 
+
         return (
             <DrinkingFountainCard
             key={index}
             icon={icon}
             location={drinking_fountain.data.instituteLocation}
             floor={drinking_fountain.data.floor}
+            avaliacao={drinking_fountain.data.avaliacao}
+            
+            
             />
         );
     });

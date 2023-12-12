@@ -78,7 +78,26 @@ export const styles = StyleSheet.create({
     learnMoreButtonText: {
         color: '#850A0A',
         fontSize: 14,
-      },
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+    },
+    espacamento:{
+        marginHorizontal: '0.4%'
+    },
+    direcao:{
+        flexDirection: 'row'
+    },
+    alinhamento:{
+        alignItems: 'flex-end',
+        alignSelf: 'flex-start',
+        left: 100,
+        marginTop: '4%'
+    },
+    avaliacao: {
+        marginTop: '50%',
+        alignItems: 'center'
+
+    },
 
     // BathroomSearchBar
     bathroomSearch: {
@@ -96,4 +115,32 @@ export const styles = StyleSheet.create({
     bathroomTextInput: {
         marginHorizontal: '2%'
     },
+
+    learnMoreTitle:{
+        color: '#850A0A',
+        fontSize: 30,
+        fontWeight: 'bold',
+        position: 'absolute', 
+        top:100, 
+        left: 30,
+    },
+    submitButton: {
+        width: 200,
+        height: 50,
+        backgroundColor: '#228B22',
+        borderRadius: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+
+    goBackButton: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        position: 'absolute', 
+        left: 30,
+        top: 50,
+        flexDirection: 'row', 
+        justifyContent: 'space-between',
+    }
 });
