@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js to install dependencies and run tests
+      - name: Setup CI environment
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: cd UnicampDiscover && npm install
-      - run: cd UnicampDiscover && npm run build --if-present
+      - run: cd UnicampDiscover && yarn install
       - run: cd UnicampDiscover && npm run test --if-present
