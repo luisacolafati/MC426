@@ -7,25 +7,10 @@ import 'react-native-gesture-handler';
 import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
-import { BathroomService } from '../services/firestore/BathroomService'; 
-import { CollectionNames } from '../database/CollectionNames';
-import { BathroomDTO } from '../dtos/BathroomDTO';
-import { Gender } from '../dtos/BathroomDTO';
 
-type BathroomScreenNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'BathroomScreen'
->;
-
-type Props = {
-  navigation: BathroomScreenNavigationProp;
-};
-
-export function BathroomTabStackScreen({navigation}: Props){
-
+export function BathroomScreen(){
+    const [bathrooms, setBathrooms] = useState<any[]>([]);
     const [search, setSearch] = useState<string>("");
-    const [bathrooms, setBathrooms] = useState<BathroomDTO[]>([]);
-    const bathroomsService = new BathroomService(CollectionNames.BATHROOMS); 
 
     useEffect(() => {
         const getBathrooms = async()=>{
@@ -34,7 +19,7 @@ export function BathroomTabStackScreen({navigation}: Props){
         getBathrooms()
     },[] )
 
-    const bathroomCards = bathrooms.map((bathroom, index) => {
+    const bathroomCards = filteredBathrooms.map((bathroom, index) => {
         let icon = "";
         if(bathroom.data.gender === Gender.FEMALE) {
             icon = "human-female"
@@ -46,10 +31,10 @@ export function BathroomTabStackScreen({navigation}: Props){
 
         return (
             <BathroomCard
-            key={index}
             icon={icon}
-            location={bathroom.data.instituteLocation}
-            floor={bathroom.data.floor}
+            location={bathroom.location}
+            address={bathroom.address}
+            floor={bathroom.floor}
             />
         );
     });

@@ -2,40 +2,7 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
-import { BathroomTabStackScreen } from '../screens/BathroomScreen';
-import { LearnMoreScreen } from '../screens/LearnMoreScreen';
-import { LearnMoreScreenDrinkingFountain } from '../screens/LearnMoreDrinkingFountainScreen';
-import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native'; 
-import { Institutes } from '../enums/InstitutesEnum';
-import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
-
-export type RootStackParamList = {
-  BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
-  DrinkingFountainScreen: undefined,
-  LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: [number, number] }; 
-};
-const BathroomStack = createStackNavigator<RootStackParamList>();
-const DrinkingFountainStack = createStackNavigator<RootStackParamList>();
-
-export function BathroomsTabStack() {
-  return (
-    <BathroomStack.Navigator>
-      <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} />
-      <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} />
-    </BathroomStack.Navigator>
-  );
-}
-
-export function DrinkingFountainsTabStack() {
-  return (
-    <DrinkingFountainStack.Navigator>
-      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
-      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
-    </DrinkingFountainStack.Navigator>
-  );
-}
+import { BathroomScreen } from '../screens/BathroomScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -44,9 +11,9 @@ export function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      activeColor="#850a0a"
-      inactiveColor="#babab7"
-      style={{ backgroundColor: "#fcfcfa" }}
+      activeColor="#A8BBB0"
+      inactiveColor="#850A0A"
+      barStyle={{ backgroundColor: "#ffffff" }}
     >
       <Tab.Screen
         name="MapScreen"
@@ -65,16 +32,6 @@ export function TabRoutes() {
           tabBarLabel: 'Banheiros',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="toilet" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="DrinkingFountainScreen"
-        component={ DrinkingFountainsTabStack}
-        options={{
-          tabBarLabel: 'Bebedouros',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="water-pump" color={color} size={26} />
           ),
         }}
       />
