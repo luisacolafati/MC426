@@ -1,25 +1,30 @@
-//BathroomCard.tsx
-import React from 'react';
-import { useEffect, useState } from 'react'; 
+// DrinkingFountainCard.tsx
+
+//DrinkingFountainCard.tsx
+import React, { useState } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { styles } from '../styles/styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Entypo from 'react-native-vector-icons/Entypo';
-import { LearnMoreScreenNavigationProp } from '../screens/LearnMoreScreen'; 
+import { LearnMoreScreenNavigationProp } from '../screens/LearnMoreDrinkingFountainScreen'; 
 import { Institutes } from '../enums/InstitutesEnum';
-import { Rating } from '../types/Rating';
-import { Bathroom } from '../types/Bathroom';
-interface  BathroomCardProps { 
+import Entypo from 'react-native-vector-icons/Entypo';
+import { Avatar } from '@rneui/themed';
+
+import { DrinkingFountain } from '../types/DrinkingFountain';
+
+
+
+interface  DrinkingFountainCardProps { 
     icon: string;
-    document_data: Bathroom;
+    document_data: DrinkingFountain;
 }
 
-export function BathroomCard({  icon, document_data}: BathroomCardProps) {
+export function DrinkingFountainCard({ icon, document_data}: DrinkingFountainCardProps) {
 
-    const[estrela, setEstrela] = useState<number>(document_data.rating.averageRate);
     const navigation = useNavigation<LearnMoreScreenNavigationProp>();
-
+    const[estrela, setEstrela] = useState<number>(document_data.rating.averageRate);
+    
     const handleRate = (estrela: number) => {
         // Atualiza a média das avaliações
         const novaMedia = (document_data.rating.averageRate * document_data.rating.numberOfRates + estrela) / (document_data.rating.numberOfRates + 1);
@@ -27,7 +32,8 @@ export function BathroomCard({  icon, document_data}: BathroomCardProps) {
     
         // Incrementa o número de avaliações
         document_data.rating.numberOfRates++;
-    };
+      };
+
     const handleLearnMorePress = () => {
         navigation.navigate('LearnMoreScreen', {
 
@@ -35,6 +41,7 @@ export function BathroomCard({  icon, document_data}: BathroomCardProps) {
           document_data,
         });
       };
+
 
     return(
         <View style={styles.bathroomView}>
@@ -46,16 +53,20 @@ export function BathroomCard({  icon, document_data}: BathroomCardProps) {
                 <Text style={styles.textBathroomCard}>{document_data.data.instituteLocation}</Text>
                 <Text style={styles.titleBathroomCard}>Andar: </Text>
                 <Text style={styles.textBathroomCard}>{document_data.data.floor}</Text>
+ 
             </View>
 
             <View style={styles.alinhamento}>
                 <View style={styles.direcao}>
                     {[1, 2, 3, 4, 5].map((avaliacao) => {
                         const starColor = avaliacao <= document_data.rating.averageRate ? "#EBC600" : '#d9d9d9';
-                        return <Entypo name="star" color={starColor} size={12} style={styles.espacamento} onPress={() => handleRate(avaliacao)}/>;
+                        return <Entypo name="star" color={starColor} size={12} style={styles.espacamento} />;
                     })}
                 </View>
             </View>
+
+
+
 
             <TouchableOpacity onPress={handleLearnMorePress} style={styles.learnMoreButton}>
                 <Text style={styles.learnMoreButtonText}> Saiba Mais </Text>

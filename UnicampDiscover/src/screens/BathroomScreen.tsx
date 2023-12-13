@@ -33,7 +33,7 @@ export function BathroomTabStackScreen({navigation}: Props){
             setBathrooms(await bathroomsService.getAllDocuments())
         }
         getBathrooms()
-    },[] )
+    },[bathrooms] )
 
     const bathroomCards = bathrooms.map((bathroom) => {
         let icon = "";
@@ -47,10 +47,9 @@ export function BathroomTabStackScreen({navigation}: Props){
 
         return (
             <BathroomCard
+
             icon={icon}
-            location={bathroom.data.instituteLocation}
-            floor={bathroom.data.floor}
-            avaliacao={bathroom.data.avaliacao}
+            document_data={bathroom}  
             />
         );
     });

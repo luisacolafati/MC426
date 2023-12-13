@@ -59,6 +59,7 @@ export class FirestoreService {
                     rating
                 }
             })
+            console.log('documents', documents)
             return documents
         } catch (err) {
             console.log(`[FirestoreService] Error getting all document from collection ${this.collection.id}: ${JSON.stringify(err)}`)
@@ -69,7 +70,7 @@ export class FirestoreService {
     async updateDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
-            await updateDoc(documentReference, document.data)
+            await updateDoc(documentReference, { ...document.data, rating: document.rating })
         } catch (err) {
             console.log(`[FirestoreService] Error updating document: ${JSON.stringify(err)}`)
             throw new UpdateDocumentError(err)
