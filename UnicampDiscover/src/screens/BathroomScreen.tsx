@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'; 
 import { ScrollView, View, Button} from 'react-native'; 
-import { getFirestore, collection, onSnapshot, query, where,getDocs } from 'firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../routes/tab.routes'; 
@@ -9,7 +8,6 @@ import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
 import { BathroomService } from '../services/firestore/BathroomService'; 
-import { CollectionNames } from "../database/CollectionNames";
 import { Bathroom } from "../types/Bathroom";
 import { Gender } from "../enums/GenderEnum";
 import { Institutes } from "../enums/InstitutesEnum";
