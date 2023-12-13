@@ -38,41 +38,51 @@ export function BathroomTabStackScreen({ navigation }: Props) {
     return Object.values(Institutes).includes(value);
   }
 
-  useEffect(() => {
-    const getBathrooms = async (): Promise<void> => {
+    const fetchData = async (): Promise<void> => {
       try {
-        if (bathrooms.length === 0) {
-          const documents = await bathroomsService.getAllDocuments();
-          setBathrooms(documents);
-        }
+        console.log('Fetching all documents...');
+        const documents = await bathroomsService.getAllDocuments();
+        console.log('All documents:', documents);
 
         let filteredBathrooms: Bathroom[] = [];
 
         if (selectedFilters.length === 0) {
-          // No filters selected, get all bathrooms
-          filteredBathrooms = bathrooms;
+          // No filters selected, display all bathrooms
+          console.log('No filters selected. Displaying all bathrooms.');
+          setBathrooms(documents);
         } else {
+          console.log('Filters selected. Filtering based on selected filters...');
           // Filters selected, filter based on selected filters
-          filteredBathrooms = bathrooms.filter((bathroom: Bathroom) =>
-            selectedFilters.every((filter: Gender | Institutes) => {
+          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
+            selectedFilters.some((filter: Gender | Institutes) => {
               if (isGender(filter)) {
+                console.log('Banheiro encontrado:', bathroom.data.instituteLocation);
+                console.log('Gender:', bathroom.data.gender);
                 return bathroom.data.gender === filter;
               } else if (isInstitute(filter)) {
+                console.log('Banheiro encontrado:', bathroom.data.instituteLocation);
+                console.log('Institute:', bathroom.data.instituteLocation);
                 return bathroom.data.instituteLocation === filter;
               }
-              return true; // No match, keep the bathroom
+              return false; // No match, keep the bathroom
             })
           );
+          setBathrooms(filteredBathrooms);
         }
 
-        setBathrooms(filteredBathrooms);
+        console.log('Filtered bathrooms:', filteredBathrooms);
       } catch (error) {
         console.error('Error fetching bathrooms:', error);
       }
     };
 
-    getBathrooms();
-  }, [selectedFilters, bathrooms, bathroomsService]);
+    useEffect(() => {
+      fetchData();
+    }, [selectedFilters]);
+
+
+
+
 
   const bathroomCards = bathrooms.map((bathroom: Bathroom) => {
     let icon = "";
@@ -86,6 +96,7 @@ export function BathroomTabStackScreen({ navigation }: Props) {
 
     return (
       <BathroomCard
+        key={bathroom.id}
         icon={icon}
         location={bathroom.data.instituteLocation}
         floor={bathroom.data.floor}
