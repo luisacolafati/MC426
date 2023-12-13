@@ -63,7 +63,8 @@ export function LearnMoreScreen({ navigation, route }: LearnProps){
           <Button 
             title="Voltar"
             color = '#850a0a'
-            onPress={() => navigation.navigate('BathroomScreen')}
+            onPress={() => 
+              navigation.navigate('BathroomScreen', {})}
           /></View>
         </View>
       );

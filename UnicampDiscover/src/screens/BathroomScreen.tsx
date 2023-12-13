@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ScrollView, View, Button} from 'react-native'; 
 import { getFirestore, collection, onSnapshot, query, where,getDocs } from 'firebase/firestore';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from '../routes/tab.routes'; 
 import 'react-native-gesture-handler';
 import { BathroomCard } from '../components/BathroomCard';
@@ -20,14 +21,17 @@ type BathroomScreenNavigationProp = StackNavigationProp<
   'BathroomScreen'
 >;
 
-type Props = {
-  navigation: BathroomScreenNavigationProp;
-};
+type BathroomScreenRouteProp = RouteProp<RootStackParamList, 'BathroomScreen'>;
 
-export function BathroomTabStackScreen({ navigation }: Props) {
+type BathroomScreenProps = {
+  navigation: BathroomScreenNavigationProp;
+  route: BathroomScreenRouteProp;
+}
+
+export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProps) {
   const [search, setSearch] = useState<string>("");
-  const [selectedFilters, setSelectedFilters] = useState<(Gender | Institutes)[]>([]);
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
+  const { filters } = route.params || { filters:[]}; //Verifique se route.params é undefined
   const bathroomsService = BathroomService.getInstance();
 
   function isGender(value: any): value is Gender {
@@ -38,50 +42,76 @@ export function BathroomTabStackScreen({ navigation }: Props) {
     return Object.values(Institutes).includes(value);
   }
 
-    const fetchData = async (): Promise<void> => {
-      try {
-        console.log('Fetching all documents...');
-        const documents = await bathroomsService.getAllDocuments();
-        console.log('All documents:', documents);
 
-        let filteredBathrooms: Bathroom[] = [];
 
-        if (selectedFilters.length === 0) {
-          // No filters selected, display all bathrooms
-          console.log('No filters selected. Displaying all bathrooms.');
-          setBathrooms(documents);
-        } else {
-          console.log('Filters selected. Filtering based on selected filters...');
-          // Filters selected, filter based on selected filters
+useEffect(() => {
+//  console.log('useEffect acionado! Filters:', filters);
+  const fetchData = async (): Promise<void> => {
+    try {
+     // console.log('Fetching all documents...');
+      const documents = await bathroomsService.getAllDocuments();
+    //  console.log('All documents:', documents);
+
+      let filteredBathrooms: Bathroom[] = [];
+
+      if (!filters || filters.length === 0) {
+        // No filters selected, display all bathrooms
+    //    console.log('No filters selected. Displaying all bathrooms.');
+        setBathrooms(documents);
+      } else {
+    //    console.log('Filters selected. Filtering based on selected filters...');
+
+        // Check if filters include Gender
+        const hasGenderFilter = filters.some(isGender);
+
+        // Check if filters include Institute
+        const hasInstituteFilter = filters.some(isInstitute);
+
+        if (hasGenderFilter && hasInstituteFilter) {
+          // Separate gender and institute filters
+          const genderFilters = filters.filter(isGender) as Gender[];
+          const instituteFilters = filters.filter(isInstitute) as Institutes[];
+
+          // Apply combined filters
           filteredBathrooms = documents.filter((bathroom: Bathroom) =>
-            selectedFilters.some((filter: Gender | Institutes) => {
-              if (isGender(filter)) {
-                console.log('Banheiro encontrado:', bathroom.data.instituteLocation);
-                console.log('Gender:', bathroom.data.gender);
-                return bathroom.data.gender === filter;
-              } else if (isInstitute(filter)) {
-                console.log('Banheiro encontrado:', bathroom.data.instituteLocation);
-                console.log('Institute:', bathroom.data.instituteLocation);
-                return bathroom.data.instituteLocation === filter;
-              }
-              return false; // No match, keep the bathroom
-            })
+            genderFilters.some((genderFilter: Gender) =>
+              bathroom.data.gender.toLowerCase() === genderFilter.toLowerCase()
+            ) &&
+            instituteFilters.some((instituteFilter: Institutes) =>
+              bathroom.data.instituteLocation.toLowerCase() === instituteFilter.toLowerCase()
+            )
           );
-          setBathrooms(filteredBathrooms);
+        } else if (hasGenderFilter) {
+          // Apply only gender filter
+          const genderFilters = filters as Gender[];
+          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
+            genderFilters.some((genderFilter: Gender) =>
+              bathroom.data.gender === genderFilter
+            )
+          );
+        } else if (hasInstituteFilter) {
+          // Apply only institute filter
+          const instituteFilters = filters as Institutes[];
+          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
+            instituteFilters.some((instituteFilter: Institutes) =>
+              bathroom.data.instituteLocation === instituteFilter
+            )
+          );
         }
 
-        console.log('Filtered bathrooms:', filteredBathrooms);
-      } catch (error) {
-        console.error('Error fetching bathrooms:', error);
+        setBathrooms(filteredBathrooms);
       }
-    };
 
-    useEffect(() => {
-      fetchData();
-    }, [selectedFilters]);
+   //   console.log('Filtered bathrooms:', filteredBathrooms);
+    } catch (error) {
+  //    console.error('Error fetching bathrooms:', error);
+    }
+  };
 
+  fetchData();
+}, [filters, bathroomsService]);
 
-
+// ...
 
 
   const bathroomCards = bathrooms.map((bathroom: Bathroom) => {
@@ -121,7 +151,7 @@ export function BathroomTabStackScreen({ navigation }: Props) {
             title="Limpar"
             color="#090909"
             onPress={() => {
-              setSelectedFilters([]);
+              navigation.setParams({filters: []});
               setSearch('');
             }}
           />
