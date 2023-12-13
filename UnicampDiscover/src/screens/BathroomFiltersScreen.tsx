@@ -11,7 +11,7 @@ import { BathroomService } from '../services/firestore/BathroomService';
 import { CollectionNames } from "../database/CollectionNames";
 import { Bathroom } from "../types/Bathroom";
 import { Gender } from "../enums/GenderEnum";
-
+import { Institutes } from "../enums/InstitutesEnum";
 type BathroomFiltersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
   'BathroomFiltersScreen'
@@ -22,40 +22,19 @@ type BathroomFiltersProps = {
 };
 
 export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps){
-    const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+    const [selectedFilters, setSelectedFilters] = useState<(Gender | Institutes)[]>([]);
 
-    const availableFilters = [
-        'Feminino',
-        'Masculino',
-        'Neutro',
-        'IA',
-        'IB',
-        'IC 3.5',
-        'IE',
-        'IEL',
-        'IFCH',
-        'IFGW',
-        'IG',
-        'IMECC',
-        'IQ',
-        'FCF',
-        'FEA',
-        'FEAGRI',
-        'FEC',
-        'FEEC',
-        'FEM',
-        'FEQ',
-        'FCM',
-        'FEF',
-        'FE',
-      ];
+    const availableFilters: (Gender | Institutes)[] = [
+      ...Object.values(Gender),
+      ...Object.values(Institutes),
+    ];
 
-      const toggleFilter = (filter: string) => {
-        const updatedFilters = selectedFilters.includes(filter)
-          ? selectedFilters.filter((item) => item !== filter)
-          : [...selectedFilters, filter];
-        setSelectedFilters(updatedFilters);
-      };  
+    const toggleFilter = (filter: Gender | Institutes) => {
+      const updatedFilters = selectedFilters.includes(filter)
+        ? selectedFilters.filter((item) => item !== filter)
+        : [...selectedFilters, filter];
+      setSelectedFilters(updatedFilters);
+    };
 
       return (
         <ScrollView>
@@ -66,7 +45,7 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps){
               {availableFilters.slice(0, Math.ceil(availableFilters.length / 2)).map((filter, index) => (
                 <CheckBox
                   key={index}
-                  title={filter}
+                  title={filter.toString()}
                   checked={selectedFilters.includes(filter)}
                   onPress={() => toggleFilter(filter)}
                   containerStyle={styles.checkboxContainer}
@@ -78,7 +57,7 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps){
               {availableFilters.slice(Math.ceil(availableFilters.length / 2)).map((filter, index) => (
                 <CheckBox
                   key={index}
-                  title={filter}
+                  title={filter.toString()}
                   checked={selectedFilters.includes(filter)}
                   onPress={() => toggleFilter(filter)}
                   containerStyle={styles.checkboxContainer}
@@ -92,9 +71,10 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps){
               title="Filtrar banheiros"
               color="#850a0a"
               onPress={() => {
-                // Implement your filter logic using selectedFilters
                 console.log('Selected Filters:', selectedFilters);
-                navigation.navigate('BathroomScreen');
+                navigation.navigate('BathroomScreen', {
+                  filters: selectedFilters,
+                });
               }}
             />
           </View>
@@ -102,7 +82,7 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps){
             <Button
               title="Voltar"
               color="#850a0a"
-              onPress={() => navigation.navigate('BathroomScreen')}
+              onPress={() => navigation.navigate('BathroomScreen', {})}
             />
           </View>
         </View>

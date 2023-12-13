@@ -7,13 +7,15 @@ import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'; 
+import { Gender } from "../enums/GenderEnum";
 import { Institutes } from '../enums/InstitutesEnum';
-import { BathroomScreen } from '../screens/BathroomScreen';
+//import { BathroomScreen } from '../screens/BathroomScreen';
 import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
 
+
 export type RootStackParamList = {
-  BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
+  BathroomScreen: { filters?: (Gender | Institutes)[] };
   LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
   BathroomFiltersScreen: undefined,
 };

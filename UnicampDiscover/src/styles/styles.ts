@@ -124,9 +124,10 @@ export const styles = StyleSheet.create({
       },
       bathroomFilterButton: {
         fontWeight: 'bold',
-        position: 'absolute', 
-        left: 111,
-        top: 860,
+        //position: 'absolute', 
+        marginTop: 2,
+        left: '25%',
+        top: '-5%',
         flexDirection: 'row', 
         justifyContent: 'space-between',  
       },
