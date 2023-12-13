@@ -1,38 +1,45 @@
-import React, { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { ScrollView, View } from 'react-native'; 
 import { getFirestore, collection, onSnapshot, query, where } from 'firebase/firestore';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../routes/tab.routes'; 
+import 'react-native-gesture-handler';
 import { BathroomCard } from '../components/BathroomCard';
 import { BathroomSearchBar } from '../components/BathroomSearchBar';
 import { styles } from '../styles/styles';
+import { BathroomService } from '../services/firestore/BathroomService'; 
+import { CollectionNames } from "../database/CollectionNames";
+import { Bathroom } from "../types/Bathroom";
+import { Gender } from "../enums/GenderEnum";
 
-export function BathroomScreen(){
-    const [bathrooms, setBathrooms] = useState<any[]>([]);
+type BathroomScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'BathroomScreen'
+>;
+
+type Props = {
+  navigation: BathroomScreenNavigationProp;
+};
+
+export function BathroomTabStackScreen({navigation}: Props){
+
+   
     const [search, setSearch] = useState<string>("");
+    const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
+    const bathroomsService =  BathroomService.getInstance();
 
     useEffect(() => {
-        const db = getFirestore();
-        const q = collection(db, 'bathrooms');
+        const getBathrooms = async()=>{
+            setBathrooms(await bathroomsService.getAllDocuments())
+        }
+        getBathrooms()
+    },[bathrooms] )
 
-        const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const bathroomList: any[] = [];
-            querySnapshot.forEach((documentSnapshot) => {
-                const data = documentSnapshot.data();
-                bathroomList.push(data);
-            });
-            setBathrooms(bathroomList);
-        });
-        return () => unsubscribe();
-    }, []);
-
-    const filteredBathrooms = bathrooms.filter((bathroom) =>
-        bathroom.location.toLowerCase().includes(search.toLowerCase())
-    );
-
-    const bathroomCards = filteredBathrooms.map((bathroom, index) => {
+    const bathroomCards = bathrooms.map((bathroom) => {
         let icon = "";
-        if(bathroom.gender === "feminino") {
+        if(bathroom.data.gender === Gender.FEMALE) {
             icon = "human-female"
-        } else if (bathroom.gender === "masculino") {
+        } else if (bathroom.data.gender === Gender.MALE) {
             icon = "human-male"
         } else {
             icon = "human-male-female"
@@ -40,11 +47,9 @@ export function BathroomScreen(){
 
         return (
             <BathroomCard
-            key={index}
+
             icon={icon}
-            location={bathroom.location}
-            address={bathroom.address}
-            floor={bathroom.floor}
+            document_data={bathroom}  
             />
         );
     });

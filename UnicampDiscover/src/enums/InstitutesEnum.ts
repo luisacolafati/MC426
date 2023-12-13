@@ -1,4 +1,5 @@
 export enum Institutes {
-    IC,
-    FEEC
+    IC_3_5 = 'IC 3.5',
+    FEEC = 'FEEC',
+    IE = 'IE'
 }

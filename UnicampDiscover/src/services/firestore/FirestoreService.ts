@@ -14,7 +14,7 @@ import { AddDocumentError } from "../../errors/firestore/AddDocumentError";
 import { UpdateDocumentError } from "../../errors/firestore/UpdateDocumentError";
 import { DeleteDocumentError } from "../../errors/firestore/DeleteDocumentError";
 import { GetAllDocumentsError } from "../../errors/firestore/GetAllDocumentsError";
-import { FirestoreDocumentDTO } from "../../dtos/FirestoreDocumentDTO";
+import { FirestoreDocument } from "../../types/FirestoreDocument";
 
 export class FirestoreService {
     private readonly db = getFirestore(firebaseApp)
@@ -24,15 +24,19 @@ export class FirestoreService {
         this.collection = collection(this.db, collectionName)
     }
 
-    private getDocumentReference (document: FirestoreDocumentDTO): DocumentReference {
+    private getDocumentReference (document: FirestoreDocument): DocumentReference {
         return doc(this.collection, document.id)
     }
 
-    async addDocument (document: FirestoreDocumentDTO): Promise<DocumentReference> {
+    async addDocument (document: FirestoreDocument): Promise<DocumentReference> {
         try {
-            const aaa = await addDoc(this.collection, document.data)
-            console.log(aaa)
-            return aaa
+            return await addDoc(this.collection, {
+                ...document.data,
+                rating: {
+                    averageRate: 5,
+                    numberOfRates: 0
+                }
+            })
         } catch (err) {
             console.log(`[FirestoreService] Error adding document: ${JSON.stringify(err)}`)
             throw new AddDocumentError(err)
@@ -45,14 +49,17 @@ export class FirestoreService {
             const documents = snapshot.docs.map((doc) => {
                 const id = doc.id
                 const documentData = doc.data()
+                const rating = documentData.rating
+                delete documentData.rating
                 return {
                     id,
                     data: {
                         ...documentData
-                    }
+                    },
+                    rating
                 }
             })
-            console.log(documents)
+            console.log('documents', documents)
             return documents
         } catch (err) {
             console.log(`[FirestoreService] Error getting all document from collection ${this.collection.id}: ${JSON.stringify(err)}`)
@@ -60,17 +67,17 @@ export class FirestoreService {
         }
     }
 
-    async updateDocument (document: FirestoreDocumentDTO): Promise<void> {
+    async updateDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
-            await updateDoc(documentReference, document.data)
+            await updateDoc(documentReference, { ...document.data, rating: document.rating })
         } catch (err) {
             console.log(`[FirestoreService] Error updating document: ${JSON.stringify(err)}`)
             throw new UpdateDocumentError(err)
         }
     }
 
-    async deleteDocument (document: FirestoreDocumentDTO): Promise<void> {
+    async deleteDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
             await deleteDoc(documentReference)

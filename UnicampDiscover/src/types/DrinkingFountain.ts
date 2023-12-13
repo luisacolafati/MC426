@@ -1,17 +1,11 @@
 import { Institutes } from "../enums/InstitutesEnum"
+import { Rating } from "./Rating"
 
-export enum Gender {
-    MALE,
-    FEMALE,
-    NEUTRAL
-}
-
-export interface BathroomDTO {
+export type DrinkingFountain = {
     id: string
     data: {
         floor: number
-        gender: Gender
-        isAccessible: boolean
         instituteLocation: Institutes
     }
+    rating: Rating
 }
