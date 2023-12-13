@@ -62,7 +62,6 @@ export function DrinkingFountainCard({ icon, document_data}: DrinkingFountainCar
                         const starColor = avaliacao <= document_data.rating.averageRate ? "#EBC600" : '#d9d9d9';
                         return <Entypo name="star" color={starColor} size={12} style={styles.espacamento} />;
                     })}
-                    <Text>{document_data.rating.averageRate}</Text>
                 </View>
             </View>
 

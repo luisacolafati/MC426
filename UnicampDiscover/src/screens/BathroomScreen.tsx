@@ -33,7 +33,7 @@ export function BathroomTabStackScreen({navigation}: Props){
             setBathrooms(await bathroomsService.getAllDocuments())
         }
         getBathrooms()
-    },[] )
+    },[bathrooms] )
 
     const bathroomCards = bathrooms.map((bathroom) => {
         let icon = "";

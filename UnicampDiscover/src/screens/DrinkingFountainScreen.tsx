@@ -34,7 +34,7 @@ export function DrinkingFountainTabStackScreen({navigation}: Props){
             setDrinkingFountains(await drinkingFountainsService.getAllDocuments())
         }
         getDrinkingFountains()
-    },[] )
+    },[drinkingFountains] )
 
     const drinkingFountainCards = drinkingFountains.map((drinking_fountain, index) => {
         let icon = "water-pump";
