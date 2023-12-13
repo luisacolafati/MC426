@@ -47,10 +47,9 @@ export function BathroomTabStackScreen({navigation}: Props){
 
         return (
             <BathroomCard
+
             icon={icon}
-            location={bathroom.data.instituteLocation}
-            floor={bathroom.data.floor}
-            avaliacao={bathroom.data.avaliacao}
+            document_data={bathroom}  
             />
         );
     });
