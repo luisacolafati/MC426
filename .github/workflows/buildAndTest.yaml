@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js to install dependencies and run tests
+      - name: Use yarn to install dependencies and run tests
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
