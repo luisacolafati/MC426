@@ -98,7 +98,40 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
 
     },
+    // Botão de filtros
+    filterButtonContainer: {
+        marginTop: 10, 
+        marginLeft: 30,
+        position: 'absolute',
+        left: -30,
+        top: 46,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //overflow: 'hidden',
+        zIndex: 1, //Botão acima do conteúdo do ScrollView
+      },
 
+      filterCleanButton: {
+        marginTop: 10, 
+        marginLeft: 30,
+        position: 'absolute',
+        left: 50,
+        top: 46,
+        justifyContent: 'center',
+        alignItems: 'center',
+        //overflow: 'hidden',
+        zIndex: 1, //Botão acima do conteúdo do ScrollView
+      },
+      bathroomFilterButton: {
+        fontWeight: 'bold',
+        //position: 'absolute', 
+        marginTop: 2,
+        left: '25%',
+        top: '-5%',
+        flexDirection: 'row', 
+        justifyContent: 'space-between',  
+      },
+    
     // BathroomSearchBar
     bathroomSearch: {
         height: 45,
@@ -108,7 +141,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#cccccc',
         flexDirection: 'row',
-        marginBottom: '2%',
+        marginBottom: '15%',
         paddingHorizontal: '2%',
         alignItems: 'center',
     },
@@ -132,5 +165,24 @@ export const styles = StyleSheet.create({
         top: 50,
         flexDirection: 'row', 
         justifyContent: 'space-between',
-    }
+    },
+
+    checkboxContainer: {
+        marginBottom: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+    
+      columnContainer: {
+        marginTop: 170, 
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 5,
+        marginBottom: 90,
+      },
+    
+      column: {
+        flex: 1,
+        flexDirection: 'column',
+      },
 });
