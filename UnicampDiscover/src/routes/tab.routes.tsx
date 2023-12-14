@@ -11,21 +11,22 @@ import { Institutes } from '../enums/InstitutesEnum';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-export type LoginScreenNavigationProp = StackNavigationProp<
+export type TabScreenNavigationProp = StackNavigationProp<
 RootStackParamList, 
-'LoginScreen'
+'TabRoutes'
 >; 
-type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
+type TabScreenRouteProp = RouteProp<RootStackParamList, 'TabRoutes'>;
 
 type TabRoutesProps = {
-    navigation: LoginScreenNavigationProp;
-    route: LoginScreenRouteProp;
+    navigation: TabScreenNavigationProp;
+    route: TabScreenRouteProp;
 }
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
   LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
-  LoginScreen: { user: boolean }
+  LoginScreen: {user : boolean};
+  TabRoutes: {user : boolean};
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
 
@@ -45,6 +46,7 @@ const Tab = createMaterialBottomTabNavigator();
 
 export function TabRoutes({ route, navigation }: TabRoutesProps) {
   const { user } = route.params;
+  
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"

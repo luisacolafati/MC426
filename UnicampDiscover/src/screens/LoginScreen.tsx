@@ -12,12 +12,12 @@ type LoginScreenNavigationProp = StackNavigationProp<
   'LoginScreen'
 >;
 
-type Props = {
+type LoginProps = {
   navigation: LoginScreenNavigationProp;
 };
 
 
-export function LoginScreen ({navigation}: Props) {
+export function LoginScreen ({navigation}: LoginProps) {
   
   const [email, setEmail] = useState<string>('ayla.cristine@hotmail.com');
   const [password, setPassword] = useState<string>('123456');
@@ -69,7 +69,8 @@ export function LoginScreen ({navigation}: Props) {
     setPassword('');
     setUser(true);
     Alert.alert('Login realizado com sucesso!');
-    navigation.setParams({ user });
+    navigation.navigate('TabRoutes', { user: true });
+    //navigation.setParams({ user });
   };
 
   return (
