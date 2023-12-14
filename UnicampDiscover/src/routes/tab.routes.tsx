@@ -8,19 +8,33 @@ import { LoginScreen } from '../screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { Institutes } from '../enums/InstitutesEnum';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+export type LoginScreenNavigationProp = StackNavigationProp<
+RootStackParamList, 
+'LoginScreen'
+>; 
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'LoginScreen'>;
+
+type TabRoutesProps = {
+    navigation: LoginScreenNavigationProp;
+    route: LoginScreenRouteProp;
+}
 
 export type RootStackParamList = {
   BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
   LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
+  LoginScreen: { user: boolean }
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
-const user = false;
 
 export function BathroomsTabStack() {
   return (
     <BathroomStack.Navigator>
       <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} options ={{headerShown: false}}  />
       <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} options ={{headerShown: false}}  />
+      <BathroomStack.Screen name="LoginScreen" component={LoginScreen} options ={{headerShown: false}}  />
     </BathroomStack.Navigator>
   );
 }
@@ -29,7 +43,8 @@ import CRUDScreen from '../screens/Admin/CRUDScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export function TabRoutes() {
+export function TabRoutes({ route, navigation }: TabRoutesProps) {
+  const { user } = route.params;
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"

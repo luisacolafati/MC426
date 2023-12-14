@@ -2,9 +2,23 @@ import React, { useState } from 'react';
 import {View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { getAuth, signInWithEmailAndPassword, AuthError } from 'firebase/auth';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../routes/tab.routes'; 
+import { RouteProp } from '@react-navigation/native';
 import { styles } from '../styles/styles';
 
-export function LoginScreen () {
+type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'LoginScreen'
+>;
+
+type Props = {
+  navigation: LoginScreenNavigationProp;
+};
+
+
+export function LoginScreen ({navigation}: Props) {
+  
   const [email, setEmail] = useState<string>('ayla.cristine@hotmail.com');
   const [password, setPassword] = useState<string>('123456');
   const [user, setUser] = useState<boolean>(false);
@@ -53,8 +67,9 @@ export function LoginScreen () {
   const onLoginSuccess = () => {
     setEmail('');
     setPassword('');
-    Alert.alert('Login realizado com sucesso!');
     setUser(true);
+    Alert.alert('Login realizado com sucesso!');
+    navigation.setParams({ user });
   };
 
   return (
