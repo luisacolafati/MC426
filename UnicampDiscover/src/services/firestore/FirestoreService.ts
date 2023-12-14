@@ -15,6 +15,10 @@ import { UpdateDocumentError } from "../../errors/firestore/UpdateDocumentError"
 import { DeleteDocumentError } from "../../errors/firestore/DeleteDocumentError";
 import { GetAllDocumentsError } from "../../errors/firestore/GetAllDocumentsError";
 import { FirestoreDocument } from "../../types/FirestoreDocument";
+import { CollectionNames } from "../../database/CollectionNames";
+import { mockedDrinkingFountain } from "../../database/mockedData/mockedDrinkingFountain";
+import { mockedBathrooms } from "../../database/mockedData/mockedBathrooms";
+import { mockedInstitutes } from "../../database/mockedData/mockedInstitutes";
 
 export class FirestoreService {
     private readonly db = getFirestore(firebaseApp)
@@ -45,7 +49,7 @@ export class FirestoreService {
 
     async getAllDocuments (): Promise<any[]> {
         try {
-            const snapshot = await getDocs(this.collection)
+            /* const snapshot = await getDocs(this.collection)
             const documents = snapshot.docs.map((doc) => {
                 const id = doc.id
                 const documentData = doc.data()
@@ -59,8 +63,17 @@ export class FirestoreService {
                     rating
                 }
             })
-            console.log('documents', documents)
-            return documents
+            return documents */
+            switch(this.collection.id) {
+                case CollectionNames.BATHROOMS:
+                    return mockedBathrooms
+                case CollectionNames.DRINKING_FOUNTAIN:
+                    return mockedDrinkingFountain
+                case CollectionNames.INSTITUTES:
+                    return mockedInstitutes
+                default:
+                    return []
+            }
         } catch (err) {
             console.log(`[FirestoreService] Error getting all document from collection ${this.collection.id}: ${JSON.stringify(err)}`)
             throw new GetAllDocumentsError(this.collection.id, err)
