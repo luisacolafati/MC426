@@ -138,6 +138,7 @@ export function MapScreen() {
         latitude: location?.coords.latitude || 0,
         longitude: location?.coords.longitude || 0
         }}
+        pinColor={'green'}
         />
 
         {institutes.map((institute) => (
