@@ -26,10 +26,10 @@ export function MapScreen() {
   const [institutes, setInstitutes] = useState<Institute[]>([])
 
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([])
-  const [bathroomsGroupedByInstitute, setBathroomsGroupedByInstitute] = useState<any[]>([])
+  const [bathroomsGroupedByInstitute, setBathroomsGroupedByInstitute] = useState({})
   
   const [drinkingFountains, setDrinkingFountains] = useState<DrinkingFountain[]>([])
-  const [drinkingFountainsGroupedByInstitute, setDrinkingFountainsGroupedByInstitute] = useState<any[]>([])  
+  const [drinkingFountainsGroupedByInstitute, setDrinkingFountainsGroupedByInstitute] = useState({})  
   
   /* const markerCoordinates = {
     latitude: -22.8135,
@@ -83,32 +83,47 @@ export function MapScreen() {
 
   useEffect(() =>  {
     const getInstitutes = async () => {
-      const instituteService = InstitutesService.getInstance()
-      const institutes = await instituteService.getAllDocuments()
-      setInstitutes(institutes)
+      try {
+        if (institutes.length === 0) {
+          const instituteService = InstitutesService.getInstance()
+          const institutes = await instituteService.getAllDocuments()
+          setInstitutes(institutes)
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     const getBathrooms = async () => {
-      const bathroomService = BathroomService.getInstance()
-      const bathrooms = await bathroomService.getAllDocuments()
-      setBathrooms(bathrooms)
+      try {
+        if (bathrooms.length === 0) {
+          const bathroomService = BathroomService.getInstance()
+          const bathrooms = await bathroomService.getAllDocuments()
+          setBathrooms(bathrooms)
+          setBathroomsGroupedByInstitute(_.groupBy(bathrooms, (bathroom: Bathroom) => bathroom.data.instituteLocation))
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     const getDrinkingFountains = async () => {
-      const drinkingFountainService = DrinkingFountainService.getInstance()
-      const drinkingFountains = await drinkingFountainService.getAllDocuments()
-      setDrinkingFountains(drinkingFountains)
+      try {
+        if (drinkingFountains.length === 0) {
+          const drinkingFountainService = DrinkingFountainService.getInstance()
+          const drinkingFountains = await drinkingFountainService.getAllDocuments()
+          setDrinkingFountains(drinkingFountains)
+          setDrinkingFountainsGroupedByInstitute(_.groupBy(drinkingFountains, (drinkingFountain: Bathroom) => drinkingFountain.data.instituteLocation))
+        }
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     getInstitutes()
-    /* getBathrooms()
-    getDrinkingFountains() */
-  }, []);
-
-  useEffect(() => {
-     console.log(_.groupBy(bathrooms, (bathroom: Bathroom) => bathroom.data.instituteLocation))
-     console.log(_.groupBy(drinkingFountains, (drinkingFountain: Bathroom) => drinkingFountain.data.instituteLocation))
-  }, [bathrooms])
+    getBathrooms()
+    getDrinkingFountains()
+  }, [])
   
   return (
     <SafeAreaView style={styles.container}>
@@ -132,15 +147,12 @@ export function MapScreen() {
                 latitude: institute.data.location.latitude,
                 longitude: institute.data.location.longitude,
               }}
-              //title={institute.nome}
             >
               <Callout>
                 <View>
                   <Text>{institute.data.name}</Text>
-                  {/* <View>
-                  <Text>Banheiros: {institute.banheiros}</Text>  
-                  </View>
-            <Text>Bebedouros: {institute.bebedouros}</Text> */}
+                  <Text>Banheiros: {(bathroomsGroupedByInstitute as any)[institute.id]?.length ?? 'Dado indisponível no momento'}</Text>  
+                  <Text>Bebedouros: {(drinkingFountainsGroupedByInstitute as any)[institute.id]?.length ?? 'Dado indisponível no momento'}</Text>
                 </View>
               </Callout>
             </Marker>
