@@ -7,7 +7,7 @@ import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import { Gender } from "../enums/GenderEnum";
-import { Institutes } from '../enums/InstitutesEnum';
+import { InstituteNames } from '../enums/InstituteNamesEnum';
 import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
 //import { BathroomScreen } from '../screens/BathroomScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
@@ -19,9 +19,9 @@ import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
 import { DrinkingFountainFiltersScreen } from '../screens/DrinkingFountainFiltersScreen';
 
 export type RootStackParamList = {
-  BathroomScreen: { filters?: (Gender | Institutes)[] }, // undefined because you aren't passing any params to the home screen
+  BathroomScreen: { filters?: (Gender | InstituteNames)[] }, // undefined because you aren't passing any params to the home screen
   BathroomFiltersScreen: undefined,
-  DrinkingFountainScreen: { selectedFilters?: (Institutes)[] },
+  DrinkingFountainScreen: { selectedFilters?: (InstituteNames)[] },
   DrinkingFountainFiltersScreen: undefined,
   LearnMoreScreen: { icon: string, document_data:  Bathroom |  DrinkingFountain }; 
 };
@@ -41,8 +41,8 @@ export function BathroomsTabStack() {
 export function DrinkingFountainsTabStack() {
   return (
     <DrinkingFountainStack.Navigator>
-      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
-      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
+      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} options ={{headerShown: false}} />
+      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} options ={{headerShown: false}} />
       <DrinkingFountainStack.Screen name="DrinkingFountainFiltersScreen" component={DrinkingFountainFiltersScreen} options ={{headerShown: false}}  />
     </DrinkingFountainStack.Navigator>
   );
