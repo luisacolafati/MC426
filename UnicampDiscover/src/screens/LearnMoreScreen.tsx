@@ -5,7 +5,7 @@ import { View, Button, Text } from 'react-native';
 import { BathroomCard } from '../components/BathroomCard';
 import { styles } from '../styles/styles';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Entypo from 'react-native-vector-icons/Entypo'; 
+import { Entypo } from '@expo/vector-icons'; 
 import { RootStackParamList } from '../routes/tab.routes'; 
 import { RouteProp } from '@react-navigation/native';
 import { doc, updateDoc } from "firebase/firestore";

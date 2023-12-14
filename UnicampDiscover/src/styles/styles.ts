@@ -132,5 +132,51 @@ export const styles = StyleSheet.create({
         top: 50,
         flexDirection: 'row', 
         justifyContent: 'space-between',
-    }
+    },
+
+     // LoginScreen
+     principal:{
+        flex: 1,
+        height: '100%',
+        width: '100%',
+    },
+    containerLogin:{
+        alignSelf: 'center',
+        marginTop: '20%'     
+    },
+    usuario:{
+        color: '#000',
+        fontSize: 20,
+        marginTop: '20%',
+    },
+    senha:{
+        color: '#000',
+        fontSize: 20,
+        marginTop: '4%', 
+    },
+    input:{
+        backgroundColor: '#FFFFFF',
+        borderColor: '#000000',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: 10,
+        width: 300,
+        height: '13%', 
+        marginTop: '1%',        
+    },
+    botaoEntrar:{
+        backgroundColor: '#850a0a',
+        justifyContent: 'center',
+        marginTop: '3%',
+        alignSelf: 'center',
+        width: '29%', 
+        height: '23%',  
+        borderRadius: 20,   
+    },
+    textoBotaoEntrar:{
+        color: '#FFFFFF',
+        fontSize: 20,
+        textAlign: 'center', 
+    },
+    
 });

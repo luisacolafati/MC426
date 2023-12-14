@@ -1,4 +1,4 @@
-import { Text, View, Alert, ScrollView, Button } from "react-native"
+import { Text, View, Alert, ScrollView, Button, TouchableOpacity } from "react-native"
 import { styles } from './styles/styles'
 import { RadioButton } from 'react-native-paper'
 import { useEffect, useState } from "react"
@@ -12,6 +12,8 @@ import { Bathroom } from "../../types/Bathroom"
 import { DrinkingFountain } from "../../types/DrinkingFountain"
 import { convertFirestoreDocumentToCSVString } from "../../utils/ConvertJSONToCSVString"
 import * as Clipboard from 'expo-clipboard'
+import { getAuth } from 'firebase/auth';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const CSVFileInstructionsByCollectionAndOperation = {
     [CollectionNames.BATHROOMS as string]: {
@@ -102,15 +104,22 @@ export default function CRUDScreen () {
         }
     }, [fileContent])
 
+    const auth = getAuth();
+
+    const LogOut = () => {
+        auth.signOut().then(() => {
+            Alert.alert("Deslogado");
+    })};
+
     return (
         <ScrollView>
-            <View
-            style={styles.pageView}>
+            <View style={styles.pageView}>
+                <View style={styles.logOut}>
+                        <MaterialCommunityIcons name="logout" color={'#850A0A'} onPress={LogOut} size={26} />
+                </View>
+                <Text style={styles.pageTitle}>Manipulação do Banco de Dados</Text>
                 <View>
-                    <Text style={styles.pageTitle}>Manipulação do Banco de Dados</Text>
-                    <View
-                    style={styles.infoCardView}
-                    >
+                    <View style={styles.infoCardView}>
                         <Text style={styles.infoCardText}>Aqui, você poderá inserir, alterar ou excluir dados de banheiros e bebedouros em lote a partir da seleção de um arquivo .csv</Text>
                     </View>
                 </View>

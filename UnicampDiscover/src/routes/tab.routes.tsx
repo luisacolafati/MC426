@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MapScreen } from '../screens/MapScreen';
 import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
+import { LoginScreen } from '../screens/LoginScreen';
 import { createStackNavigator } from '@react-navigation/stack';
-import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native'; 
 import { Institutes } from '../enums/InstitutesEnum';
 
@@ -14,6 +14,7 @@ export type RootStackParamList = {
   LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
+const user = false;
 
 export function BathroomsTabStack() {
   return (
@@ -24,11 +25,9 @@ export function BathroomsTabStack() {
   );
 }
 
-import { BathroomScreen } from '../screens/BathroomScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
 
 const Tab = createMaterialBottomTabNavigator();
-
 
 export function TabRoutes() {
   return (
@@ -60,14 +59,15 @@ export function TabRoutes() {
       />
       <Tab.Screen
         name="CRUDScreen"
-        component={CRUDScreen}
+        component={user ? CRUDScreen : LoginScreen}
         options={{
-          tabBarLabel: 'CRUD',
+          tabBarLabel: user ? 'CRUD' : 'Login',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="database" color={color} size={26} />
+            <MaterialCommunityIcons name={user ? "database" : "login"} color={color} size={26} />
           ),
         }}
       />
+      
     </Tab.Navigator>
   );
 }
