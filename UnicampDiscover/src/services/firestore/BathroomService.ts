@@ -1,6 +1,6 @@
 import { CollectionNames } from "../../database/CollectionNames"
 import { Bathroom } from "../../types/Bathroom"
-import { Institutes } from "../../enums/InstitutesEnum"
+import { InstituteNames } from "../../enums/InstituteNamesEnum"
 import { Gender } from '../../enums/GenderEnum'
 import { InvalidParamError } from "../../errors/InvalidParamError"
 import { CRUDInBatchService } from "./CRUDInBatchService"
@@ -28,8 +28,8 @@ export class BathroomService extends CRUDInBatchService {
             throw new InvalidParamError('gender', 'MALE, FEMALE or NEUTRAL')
         }
 
-        if (documents.some(doc => !Object.values(Institutes).includes(doc.data.instituteLocation))) {
-            throw new InvalidParamError('instituteLocation', `${Object.values(Institutes).join(' or ')}`)
+        if (documents.some(doc => !Object.values(InstituteNames).includes(doc.data.instituteLocation))) {
+            throw new InvalidParamError('instituteLocation', `${Object.values(InstituteNames).join(' or ')}`)
         }
 
         if (documents.some(doc => typeof doc.data.isAccessible !== 'boolean')) {

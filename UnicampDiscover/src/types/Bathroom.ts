@@ -1,5 +1,5 @@
 import { Gender } from "../enums/GenderEnum"
-import { Institutes } from "../enums/InstitutesEnum"
+import { InstituteNames } from "../enums/InstituteNamesEnum"
 import { Rating } from "./Rating"
 
 export type Bathroom = {
@@ -8,7 +8,7 @@ export type Bathroom = {
         floor: number
         gender: Gender
         isAccessible: boolean
-        instituteLocation: Institutes
+        instituteLocation: InstituteNames
     }
     rating: Rating
 }
