@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, StyleSheet, View, Text, Image } from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import {requestForegroundPermissionsAsync, getCurrentPositionAsync, LocationObject, watchHeadingAsync, watchPositionAsync, LocationAccuracy} from 'expo-location'
-import { Section } from 'react-native-paper/lib/typescript/src/components/List/List';
 
 
 
@@ -52,7 +51,7 @@ export function MapScreen() {
       accuracy: LocationAccuracy.Highest,
       timeInterval: 1000,
       distanceInterval: 1
-    }, (response) => {
+    }, (response : any) => {
       setLocation(response);
 
       /*Essa parte comentada a baixo é responsavel por focar no usuario
