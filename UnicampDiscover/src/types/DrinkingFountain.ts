@@ -1,4 +1,5 @@
 import { InstituteNames } from "../enums/InstituteNamesEnum"
+import { Rating } from "./Rating"
 
 export type DrinkingFountain = {
     id: string
@@ -6,4 +7,5 @@ export type DrinkingFountain = {
         floor: number
         instituteLocation: InstituteNames
     }
+    rating: Rating
 }

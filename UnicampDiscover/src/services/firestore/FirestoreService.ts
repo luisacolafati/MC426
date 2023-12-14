@@ -30,7 +30,13 @@ export class FirestoreService {
 
     async addDocument (document: FirestoreDocument): Promise<DocumentReference> {
         try {
-            return await addDoc(this.collection, document.data)
+            return await addDoc(this.collection, {
+                ...document.data,
+                rating: {
+                    averageRate: 5,
+                    numberOfRates: 0
+                }
+            })
         } catch (err) {
             console.log(`[FirestoreService] Error adding document: ${JSON.stringify(err)}`)
             throw new AddDocumentError(err)
@@ -43,13 +49,17 @@ export class FirestoreService {
             const documents = snapshot.docs.map((doc) => {
                 const id = doc.id
                 const documentData = doc.data()
+                const rating = documentData.rating
+                delete documentData.rating
                 return {
                     id,
                     data: {
                         ...documentData
-                    }
+                    },
+                    rating
                 }
             })
+            console.log('documents', documents)
             return documents
         } catch (err) {
             console.log(`[FirestoreService] Error getting all document from collection ${this.collection.id}: ${JSON.stringify(err)}`)
@@ -60,7 +70,7 @@ export class FirestoreService {
     async updateDocument (document: FirestoreDocument): Promise<void> {
         try {
             const documentReference = this.getDocumentReference(document)
-            await updateDoc(documentReference, document.data)
+            await updateDoc(documentReference, { ...document.data, rating: document.rating })
         } catch (err) {
             console.log(`[FirestoreService] Error updating document: ${JSON.stringify(err)}`)
             throw new UpdateDocumentError(err)
