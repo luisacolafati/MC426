@@ -39,8 +39,12 @@ export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProp
   function isInstitute(value: any): value is Institutes {
     return Object.values(Institutes).includes(value);
   }
-
-
+    /*useEffect(() => {
+        const getBathrooms = async()=>{
+            setBathrooms(await bathroomsService.getAllDocuments())
+        }
+        getBathrooms()
+    },[bathrooms] )*/
 
 useEffect(() => {
 //  console.log('useEffect acionado! Filters:', filters);
@@ -109,8 +113,6 @@ useEffect(() => {
   fetchData();
 }, [filters, bathroomsService]);
 
-// ...
-
 
   const bathroomCards = bathrooms.map((bathroom: Bathroom) => {
     let icon = "";
@@ -126,9 +128,7 @@ useEffect(() => {
       <BathroomCard
         key={bathroom.id}
         icon={icon}
-        location={bathroom.data.instituteLocation}
-        floor={bathroom.data.floor}
-        avaliacao={bathroom.data.avaliacao}
+        document_data={bathroom}
       />
     );
   });

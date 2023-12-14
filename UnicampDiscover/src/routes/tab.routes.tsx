@@ -6,20 +6,27 @@ import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native'; 
 import { Gender } from "../enums/GenderEnum";
 import { Institutes } from '../enums/InstitutesEnum';
+import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
 //import { BathroomScreen } from '../screens/BathroomScreen';
-import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
-
+import { LearnMoreScreenDrinkingFountain } from '../screens/LearnMoreDrinkingFountainScreen';
+import { Rating } from '../types/Rating';
+import { DrinkingFountain } from '../types/DrinkingFountain';
+import { Bathroom } from '../types/Bathroom';
+import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
+import { DrinkingFountainFiltersScreen } from '../screens/DrinkingFountainFiltersScreen';
 
 export type RootStackParamList = {
-  BathroomScreen: { filters?: (Gender | Institutes)[] };
-  LearnMoreScreen: { location: Institutes, floor: number, icon: string, avaliacao: number }; 
+  BathroomScreen: { filters?: (Gender | Institutes)[] }, // undefined because you aren't passing any params to the home screen
   BathroomFiltersScreen: undefined,
+  DrinkingFountainScreen: { selectedFilters?: (Institutes)[] },
+  DrinkingFountainFiltersScreen: undefined,
+  LearnMoreScreen: { icon: string, document_data:  Bathroom |  DrinkingFountain }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
+const DrinkingFountainStack = createStackNavigator<RootStackParamList>();
 
 export function BathroomsTabStack() {
   return (
@@ -31,6 +38,15 @@ export function BathroomsTabStack() {
   );
 }
 
+export function DrinkingFountainsTabStack() {
+  return (
+    <DrinkingFountainStack.Navigator>
+      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
+      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
+      <DrinkingFountainStack.Screen name="DrinkingFountainFiltersScreen" component={DrinkingFountainFiltersScreen} options ={{headerShown: false}}  />
+    </DrinkingFountainStack.Navigator>
+  );
+}
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -40,9 +56,9 @@ export function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      activeColor="#A8BBB0"
-      inactiveColor="#850A0A"
-      barStyle={{ backgroundColor: "#ffffff" }}
+      activeColor="#850a0a"
+      inactiveColor="#babab7"
+      style={{ backgroundColor: "#fcfcfa" }}
     >
       <Tab.Screen
         name="MapScreen"
@@ -61,6 +77,16 @@ export function TabRoutes() {
           tabBarLabel: 'Banheiros',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="toilet" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="DrinkingFountainScreen"
+        component={ DrinkingFountainsTabStack}
+        options={{
+          tabBarLabel: 'Bebedouros',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="water-pump" color={color} size={26} />
           ),
         }}
       />
