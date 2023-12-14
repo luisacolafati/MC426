@@ -43,13 +43,13 @@ export function LearnMoreScreen({ navigation, route }: LearnProps){
 
         alert('Avaliação submetida com sucesso!');
         bathrooms;
-        navigation.navigate('BathroomScreen');
+        navigation.navigate('BathroomScreen',{});
       } catch (error) {
         console.error(error);
         alert(
           'Houve um erro ao submeter a avaliação. Tente novamente mais tarde.'
         );
-        navigation.navigate('BathroomScreen');
+        navigation.navigate('BathroomScreen',{});
       }
     };
     return (
@@ -85,7 +85,8 @@ export function LearnMoreScreen({ navigation, route }: LearnProps){
           <Button 
             title="Voltar"
             color = '#850a0a'
-            onPress={() => navigation.navigate('BathroomScreen')}
+            onPress={() => 
+              navigation.navigate('BathroomScreen', {})}
           /></View>
         </View>
       );

@@ -6,20 +6,23 @@ import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native'; 
+import { Gender } from "../enums/GenderEnum";
 import { Institutes } from '../enums/InstitutesEnum';
 import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
-import { BathroomScreen } from '../screens/BathroomScreen';
+//import { BathroomScreen } from '../screens/BathroomScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
 import { LearnMoreScreenDrinkingFountain } from '../screens/LearnMoreDrinkingFountainScreen';
 import { Rating } from '../types/Rating';
 import { DrinkingFountain } from '../types/DrinkingFountain';
 import { Bathroom } from '../types/Bathroom';
-
+import { BathroomFiltersScreen } from '../screens/BathroomFiltersScreen';
+import { DrinkingFountainFiltersScreen } from '../screens/DrinkingFountainFiltersScreen';
 
 export type RootStackParamList = {
-  BathroomScreen: undefined, // undefined because you aren't passing any params to the home screen
-  DrinkingFountainScreen: undefined,
+  BathroomScreen: { filters?: (Gender | Institutes)[] }, // undefined because you aren't passing any params to the home screen
+  BathroomFiltersScreen: undefined,
+  DrinkingFountainScreen: { selectedFilters?: (Institutes)[] },
+  DrinkingFountainFiltersScreen: undefined,
   LearnMoreScreen: { icon: string, document_data:  Bathroom |  DrinkingFountain }; 
 };
 const BathroomStack = createStackNavigator<RootStackParamList>();
@@ -30,6 +33,7 @@ export function BathroomsTabStack() {
     <BathroomStack.Navigator>
       <BathroomStack.Screen name="BathroomScreen" component={BathroomTabStackScreen} options ={{headerShown: false}}  />
       <BathroomStack.Screen name="LearnMoreScreen" component={LearnMoreScreen} options ={{headerShown: false}}  />
+      <BathroomStack.Screen name="BathroomFiltersScreen" component={BathroomFiltersScreen} options ={{headerShown: false}}  />
     </BathroomStack.Navigator>
   );
 }
@@ -39,6 +43,7 @@ export function DrinkingFountainsTabStack() {
     <DrinkingFountainStack.Navigator>
       <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
       <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
+      <DrinkingFountainStack.Screen name="DrinkingFountainFiltersScreen" component={DrinkingFountainFiltersScreen} options ={{headerShown: false}}  />
     </DrinkingFountainStack.Navigator>
   );
 }
