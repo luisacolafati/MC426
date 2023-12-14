@@ -1,18 +1,14 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { MapScreen } from '../screens/MapScreen';
+import { MapScreen } from '../screens/Map/MapScreen';
 import { BathroomTabStackScreen } from '../screens/BathroomScreen';
 import { LearnMoreScreen } from '../screens/LearnMoreScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native'; 
-import { Institutes } from '../enums/InstitutesEnum';
 import { DrinkingFountainTabStackScreen } from '../screens/DrinkingFountainScreen';
-import { BathroomScreen } from '../screens/BathroomScreen';
 import CRUDScreen from '../screens/Admin/CRUDScreen';
 import { LearnMoreScreenDrinkingFountain } from '../screens/LearnMoreDrinkingFountainScreen';
-import { Rating } from '../types/Rating';
 import { DrinkingFountain } from '../types/DrinkingFountain';
 import { Bathroom } from '../types/Bathroom';
 
