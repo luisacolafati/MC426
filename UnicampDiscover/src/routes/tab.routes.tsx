@@ -41,8 +41,8 @@ export function BathroomsTabStack() {
 export function DrinkingFountainsTabStack() {
   return (
     <DrinkingFountainStack.Navigator>
-      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} />
-      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} />
+      <DrinkingFountainStack.Screen name="DrinkingFountainScreen" component={DrinkingFountainTabStackScreen} options ={{headerShown: false}} />
+      <DrinkingFountainStack.Screen name="LearnMoreScreen" component={LearnMoreScreenDrinkingFountain} options ={{headerShown: false}} />
       <DrinkingFountainStack.Screen name="DrinkingFountainFiltersScreen" component={DrinkingFountainFiltersScreen} options ={{headerShown: false}}  />
     </DrinkingFountainStack.Navigator>
   );

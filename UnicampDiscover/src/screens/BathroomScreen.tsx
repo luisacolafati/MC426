@@ -47,12 +47,10 @@ export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProp
     },[bathrooms] )*/
 
 useEffect(() => {
-//  console.log('useEffect acionado! Filters:', filters);
   const fetchData = async (): Promise<void> => {
     try {
      // console.log('Fetching all documents...');
       const documents = await bathroomsService.getAllDocuments();
-    //  console.log('All documents:', documents);
 
       let filteredBathrooms: Bathroom[] = [];
 
@@ -104,7 +102,6 @@ useEffect(() => {
         setBathrooms(filteredBathrooms);
       }
 
-   //   console.log('Filtered bathrooms:', filteredBathrooms);
     } catch (error) {
   //    console.error('Error fetching bathrooms:', error);
     }

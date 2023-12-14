@@ -73,7 +73,6 @@ export function DrinkingFountainFiltersScreen({ navigation }: DrinkingFountainFi
             title="Filtrar bebedouros"
             color="#850a0a"
             onPress={() => {
-       //       console.log('Selected Filters:', selectedFilters);
               navigation.navigate('DrinkingFountainScreen', {
                 selectedFilters: selFilters,
               });

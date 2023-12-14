@@ -12,7 +12,7 @@ import { styles } from '../styles/styles';
 import { DrinkingFountainService } from '../services/firestore/DrinkingFountainService'; 
 //import { CollectionNames } from '../database/CollectionNames';
 import { DrinkingFountain } from '../types/DrinkingFountain';
-import { Institutes } from "../enums/InstitutesEnum";
+import { InstituteNames } from "../enums/InstituteNamesEnum";
 
 
 type DrinkingFountainScreenNavigationProp = StackNavigationProp<
@@ -34,8 +34,8 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
     const { selectedFilters } = route.params || { selectedFilters:[]}; //Verifique se route.params é undefined
     const drinkingFountainsService = DrinkingFountainService.getInstance(); 
 
-    function isInstitute(value: any): value is Institutes {
-        return Object.values(Institutes).includes(value);
+    function isInstitute(value: any): value is InstituteNames {
+        return Object.values(InstituteNames).includes(value);
       }
     /*useEffect(() => {
         const getDrinkingFountains = async()=>{
@@ -44,12 +44,10 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
         getDrinkingFountains()
     },[drinkingFountains] )*/
     useEffect(() => {
-        //  console.log('useEffect acionado! Filters:', selectedFilters);
           const fetchDrinking = async (): Promise<void> => {
             try {
-             // console.log('Fetching all documents...');
+             
               const documents = await drinkingFountainsService.getAllDocuments();
-            //  console.log('All documents:', documents);
         
               let filteredDrinkingFountains: DrinkingFountain[] = [];
         
@@ -65,9 +63,9 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
         
                 if (hasInstituteFilter) {
                   // Apply only institute filter
-                  const instituteFilters = selectedFilters as Institutes[];
+                  const instituteFilters = selectedFilters as InstituteNames[];
                   filteredDrinkingFountains = documents.filter((drinking_fountain: DrinkingFountain) =>
-                    instituteFilters.some((instituteFilter: Institutes) =>
+                    instituteFilters.some((instituteFilter: InstituteNames) =>
                       drinking_fountain.data.instituteLocation === instituteFilter
                     )
                   );
@@ -75,7 +73,6 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
         
                 setDrinkingFountains(filteredDrinkingFountains);
               }
-           //   console.log('Filtered drinking fountains:', filteredDrinkingFountains);
             } catch (error) {
           //    console.error('Error fetching drinking fountains:', error);
             }
