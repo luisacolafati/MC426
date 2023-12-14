@@ -6,7 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../routes/tab.routes';
 import { styles } from '../styles/styles';
 import { Gender } from '../enums/GenderEnum';
-import { Institutes } from '../enums/InstitutesEnum';
+import { InstituteNames } from '../enums/InstituteNamesEnum';
 
 type BathroomFiltersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -18,15 +18,15 @@ type BathroomFiltersProps = {
 };
 
 export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps) {
-  const [selectedFilters, setSelectedFilters] = useState<(Gender | Institutes)[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<(Gender | InstituteNames)[]>([]);
 
-  const availableFilters: (Gender | Institutes)[] = [
+  const availableFilters: (Gender | InstituteNames)[] = [
     ...Object.values(Gender),
-    ...Object.values(Institutes),
+    ...Object.values(InstituteNames),
   ];
 
-  const toggleFilter = (filter: Gender | Institutes) => {
-    let updatedFilters: (Gender | Institutes)[] = [];
+  const toggleFilter = (filter: Gender | InstituteNames) => {
+    let updatedFilters: (Gender | InstituteNames)[] = [];
 
     if (isGender(filter)) {
       // Toggle the selected gender filter
@@ -44,7 +44,7 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps) {
   };
 
   const isGender = (value: any): value is Gender => Object.values(Gender).includes(value);
-  const isInstitute = (value: any): value is Institutes => Object.values(Institutes).includes(value);
+  const isInstitute = (value: any): value is InstituteNames => Object.values(InstituteNames).includes(value);
 
   return (
     <ScrollView>

@@ -10,7 +10,7 @@ import { styles } from '../styles/styles';
 import { BathroomService } from '../services/firestore/BathroomService'; 
 import { Bathroom } from "../types/Bathroom";
 import { Gender } from "../enums/GenderEnum";
-import { Institutes } from "../enums/InstitutesEnum";
+import { InstituteNames } from "../enums/InstituteNamesEnum";
 
 
 
@@ -36,8 +36,8 @@ export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProp
     return Object.values(Gender).includes(value);
   }
 
-  function isInstitute(value: any): value is Institutes {
-    return Object.values(Institutes).includes(value);
+  function isInstitute(value: any): value is InstituteNames {
+    return Object.values(InstituteNames).includes(value);
   }
     /*useEffect(() => {
         const getBathrooms = async()=>{
@@ -72,14 +72,14 @@ useEffect(() => {
         if (hasGenderFilter && hasInstituteFilter) {
           // Separate gender and institute filters
           const genderFilters = filters.filter(isGender) as Gender[];
-          const instituteFilters = filters.filter(isInstitute) as Institutes[];
+          const instituteFilters = filters.filter(isInstitute) as InstituteNames[];
 
           // Apply combined filters
           filteredBathrooms = documents.filter((bathroom: Bathroom) =>
             genderFilters.some((genderFilter: Gender) =>
               bathroom.data.gender.toLowerCase() === genderFilter.toLowerCase()
             ) &&
-            instituteFilters.some((instituteFilter: Institutes) =>
+            instituteFilters.some((instituteFilter: InstituteNames) =>
               bathroom.data.instituteLocation.toLowerCase() === instituteFilter.toLowerCase()
             )
           );
@@ -93,9 +93,9 @@ useEffect(() => {
           );
         } else if (hasInstituteFilter) {
           // Apply only institute filter
-          const instituteFilters = filters as Institutes[];
+          const instituteFilters = filters as InstituteNames[];
           filteredBathrooms = documents.filter((bathroom: Bathroom) =>
-            instituteFilters.some((instituteFilter: Institutes) =>
+            instituteFilters.some((instituteFilter: InstituteNames) =>
               bathroom.data.instituteLocation === instituteFilter
             )
           );

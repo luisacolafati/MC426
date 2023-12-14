@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../routes/tab.routes';
 import { styles } from '../styles/styles';
-import { Institutes } from '../enums/InstitutesEnum';
+import { InstituteNames } from '../enums/InstituteNamesEnum';
 
 type DrinkingFountainFiltersScreenNavigationProp = StackNavigationProp<
   RootStackParamList,
@@ -17,14 +17,14 @@ type DrinkingFountainFiltersProps = {
 };
 
 export function DrinkingFountainFiltersScreen({ navigation }: DrinkingFountainFiltersProps) {
-  const [selFilters, setSelFilters] = useState<(Institutes)[]>([]);
+  const [selFilters, setSelFilters] = useState<(InstituteNames)[]>([]);
 
-  const availableFilters: (Institutes)[] = [
-    ...Object.values(Institutes),
+  const availableFilters: (InstituteNames)[] = [
+    ...Object.values(InstituteNames),
   ];
 
-  const toggleFilter = (filter: Institutes) => {
-    let updatedFilters: (Institutes)[] = [];
+  const toggleFilter = (filter: InstituteNames) => {
+    let updatedFilters: (InstituteNames)[] = [];
 
     if (isInstitute(filter)) {
       // Toggle the selected institute filter
@@ -36,7 +36,7 @@ export function DrinkingFountainFiltersScreen({ navigation }: DrinkingFountainFi
     setSelFilters(updatedFilters);
   };
   
-  const isInstitute = (value: any): value is Institutes => Object.values(Institutes).includes(value);
+  const isInstitute = (value: any): value is InstituteNames => Object.values(InstituteNames).includes(value);
 
   return (
     <ScrollView>
