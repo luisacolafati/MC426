@@ -151,8 +151,8 @@ export function MapScreen() {
               <Callout>
                 <View>
                   <Text>{institute.data.name}</Text>
-                  <Text>Banheiros: {(bathroomsGroupedByInstitute as any)[institute.id]?.length ?? 'Dado indisponível no momento'}</Text>  
-                  <Text>Bebedouros: {(drinkingFountainsGroupedByInstitute as any)[institute.id]?.length ?? 'Dado indisponível no momento'}</Text>
+                  <Text>Banheiros: {(bathroomsGroupedByInstitute as any)[institute.data.name]?.length ?? 'Dado indisponível no momento'}</Text>  
+                  <Text>Bebedouros: {(drinkingFountainsGroupedByInstitute as any)[institute.data.name]?.length ?? 'Dado indisponível no momento'}</Text>
                 </View>
               </Callout>
             </Marker>
