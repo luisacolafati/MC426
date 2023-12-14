@@ -1,6 +1,6 @@
 import { Bathroom } from '../../types/Bathroom'
 import { DrinkingFountain } from '../../types/DrinkingFountain'
-import { Institutes } from '../../enums/InstitutesEnum'
+import { InstituteNames } from '../../enums/InstituteNamesEnum'
 import { Gender } from '../../enums/GenderEnum'
 import { ReadFileError } from '../../errors/files/ReadFileError'
 import * as FileSystem from 'expo-file-system'
@@ -18,7 +18,7 @@ export class FileService {
     private getJSONValueByCSVKey (key: string, value: string): string | number | boolean | Gender {
         switch (key) {
             case 'instituteLocation':
-                return value as unknown as Institutes
+                return value as unknown as InstituteNames
             case 'floor':
                 return parseInt(value)
             case 'gender':

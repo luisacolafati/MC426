@@ -1,6 +1,6 @@
 import { CollectionNames } from "../../database/CollectionNames"
 import { DrinkingFountain } from "../../types/DrinkingFountain"
-import { Institutes } from "../../enums/InstitutesEnum"
+import { InstituteNames } from "../../enums/InstituteNamesEnum"
 import { InvalidParamError } from "../../errors/InvalidParamError"
 import { CRUDInBatchService } from "./CRUDInBatchService"
 
@@ -23,8 +23,8 @@ export class DrinkingFountainService extends CRUDInBatchService {
             throw new InvalidParamError('floor', 'number')
         }
 
-        if (documents.some(doc => Object.values(Institutes).includes(doc.data.instituteLocation))) {
-            throw new InvalidParamError('instituteLocation', `${Object.values(Institutes).join(' or ')}`)
+        if (documents.some(doc => Object.values(InstituteNames).includes(doc.data.instituteLocation))) {
+            throw new InvalidParamError('instituteLocation', `${Object.values(InstituteNames).join(' or ')}`)
         }
     }
 }
