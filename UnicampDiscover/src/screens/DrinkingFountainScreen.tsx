@@ -44,12 +44,10 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
         getDrinkingFountains()
     },[drinkingFountains] )*/
     useEffect(() => {
-        //  console.log('useEffect acionado! Filters:', selectedFilters);
           const fetchDrinking = async (): Promise<void> => {
             try {
-             // console.log('Fetching all documents...');
+             
               const documents = await drinkingFountainsService.getAllDocuments();
-            //  console.log('All documents:', documents);
         
               let filteredDrinkingFountains: DrinkingFountain[] = [];
         
@@ -75,7 +73,6 @@ export function DrinkingFountainTabStackScreen({navigation, route}: DrinkingFoun
         
                 setDrinkingFountains(filteredDrinkingFountains);
               }
-           //   console.log('Filtered drinking fountains:', filteredDrinkingFountains);
             } catch (error) {
           //    console.error('Error fetching drinking fountains:', error);
             }

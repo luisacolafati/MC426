@@ -77,6 +77,7 @@ useEffect(() => {
   const fetchData = async (): Promise<void> => {
     try {
       const documents = await bathroomsService.getAllDocuments();
+
       let filteredBathrooms: Bathroom[] = [];
   
       if (!filters || filters.length === 0) {
@@ -87,6 +88,7 @@ useEffect(() => {
   
         if (hasGenderFilter && hasInstituteFilter) {
           filteredBathrooms = combinedFilter(documents, filters);
+
         } else if (hasGenderFilter) {
           filteredBathrooms = genderFilter(documents, filters);
         } else if (hasInstituteFilter) {
