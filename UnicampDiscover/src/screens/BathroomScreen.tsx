@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react'; 
 import { ScrollView, View, Button} from 'react-native'; 
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -39,73 +40,68 @@ export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProp
   function isInstitute(value: any): value is InstituteNames {
     return Object.values(InstituteNames).includes(value);
   }
-    /*useEffect(() => {
-        const getBathrooms = async()=>{
-            setBathrooms(await bathroomsService.getAllDocuments())
-        }
-        getBathrooms()
-    },[bathrooms] )*/
+
+  const genderFilter = (documents: Bathroom[], filters: (Gender | InstituteNames)[]): Bathroom[] => {
+    const genderFilters = filters as Gender[];
+    return documents.filter((bathroom: Bathroom) =>
+      genderFilters.some((genderFilter: Gender) =>
+        bathroom.data.gender === genderFilter
+      )
+    );
+  };
+  
+  const instituteFilter = (documents: Bathroom[], filters: (Gender | InstituteNames)[]): Bathroom[] => {
+    const instituteFilters = filters as InstituteNames[];
+    return documents.filter((bathroom: Bathroom) =>
+      instituteFilters.some((instituteFilter: InstituteNames) =>
+        bathroom.data.instituteLocation === instituteFilter
+      )
+    );
+  };
+  
+  const combinedFilter = (documents: Bathroom[], filters: (Gender | InstituteNames)[]): Bathroom[] => {
+    const genderFilters = filters.filter(isGender) as Gender[];
+    const instituteFilters = filters.filter(isInstitute) as InstituteNames[];
+  
+    return documents.filter((bathroom: Bathroom) =>
+      genderFilters.some((genderFilter: Gender) =>
+        bathroom.data.gender.toLowerCase() === genderFilter.toLowerCase()
+      ) &&
+      instituteFilters.some((instituteFilter: InstituteNames) =>
+        bathroom.data.instituteLocation.toLowerCase() === instituteFilter.toLowerCase()
+      )
+    );
+  };
 
 useEffect(() => {
   const fetchData = async (): Promise<void> => {
     try {
-     // console.log('Fetching all documents...');
       const documents = await bathroomsService.getAllDocuments();
 
       let filteredBathrooms: Bathroom[] = [];
-
+  
       if (!filters || filters.length === 0) {
-        // No filters selected, display all bathrooms
-    //    console.log('No filters selected. Displaying all bathrooms.');
         setBathrooms(documents);
       } else {
-    //    console.log('Filters selected. Filtering based on selected filters...');
-
-        // Check if filters include Gender
         const hasGenderFilter = filters.some(isGender);
-
-        // Check if filters include Institute
         const hasInstituteFilter = filters.some(isInstitute);
-
+  
         if (hasGenderFilter && hasInstituteFilter) {
-          // Separate gender and institute filters
-          const genderFilters = filters.filter(isGender) as Gender[];
-          const instituteFilters = filters.filter(isInstitute) as InstituteNames[];
+          filteredBathrooms = combinedFilter(documents, filters);
 
-          // Apply combined filters
-          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
-            genderFilters.some((genderFilter: Gender) =>
-              bathroom.data.gender.toLowerCase() === genderFilter.toLowerCase()
-            ) &&
-            instituteFilters.some((instituteFilter: InstituteNames) =>
-              bathroom.data.instituteLocation.toLowerCase() === instituteFilter.toLowerCase()
-            )
-          );
         } else if (hasGenderFilter) {
-          // Apply only gender filter
-          const genderFilters = filters as Gender[];
-          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
-            genderFilters.some((genderFilter: Gender) =>
-              bathroom.data.gender === genderFilter
-            )
-          );
+          filteredBathrooms = genderFilter(documents, filters);
         } else if (hasInstituteFilter) {
-          // Apply only institute filter
-          const instituteFilters = filters as InstituteNames[];
-          filteredBathrooms = documents.filter((bathroom: Bathroom) =>
-            instituteFilters.some((instituteFilter: InstituteNames) =>
-              bathroom.data.instituteLocation === instituteFilter
-            )
-          );
+          filteredBathrooms = instituteFilter(documents, filters);
         }
-
+  
         setBathrooms(filteredBathrooms);
       }
-
     } catch (error) {
-  //    console.error('Error fetching bathrooms:', error);
+      // console.error('Error fetching bathrooms:', error);
     }
   };
+  
 
   fetchData();
 }, [filters, bathroomsService]);
