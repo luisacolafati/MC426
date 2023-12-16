@@ -30,11 +30,6 @@ export function MapScreen() {
   
   const [drinkingFountains, setDrinkingFountains] = useState<DrinkingFountain[]>([])
   const [drinkingFountainsGroupedByInstitute, setDrinkingFountainsGroupedByInstitute] = useState({})  
-  
-  /* const markerCoordinates = {
-    latitude: -22.8135,
-    longitude: -47.0635,
-  }; */
 
   async function requestLocation() {
     const {granted} = await requestForegroundPermissionsAsync();
@@ -64,20 +59,6 @@ export function MapScreen() {
       distanceInterval: 1
     }, (response : any) => {
       setLocation(response);
-
-      /*Essa parte comentada a baixo é responsavel por focar no usuario
-      Minha ideia é ter um botao q ativa/desativa isso, que nem no waze
-      porque se isso estiver sempre ligado o usuario nao consegue olhar 
-      o mapa
-      */
-
-      //setMapRegion({
-      //  latitude: response.coords.latitude,
-      //  longitude: response.coords.longitude,
-      //  latitudeDelta: 0.001,
-      //  longitudeDelta: 0.001
-      //})
-
     });
   }, [])
 
