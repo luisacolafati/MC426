@@ -25,13 +25,14 @@ type BathroomScreenRouteProp = RouteProp<RootStackParamList, 'BathroomScreen'>;
 type BathroomScreenProps = {
   navigation: BathroomScreenNavigationProp;
   route: BathroomScreenRouteProp;
+  bathroomService: BathroomService // BathroomService como propriedade
 }
 
-export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProps) {
+export const BathroomTabStackScreen: React.FC<BathroomScreenProps> = ({ navigation, route }) =>{
   const [search, setSearch] = useState<string>("");
   const [bathrooms, setBathrooms] = useState<Bathroom[]>([]);
   const { filters } = route.params || { filters:[]}; //Verifique se route.params é undefined
-  const bathroomsService = BathroomService.getInstance();
+  //const bathroomsService = BathroomService.getInstance();
 
   function isGender(value: any): value is Gender {
     return Object.values(Gender).includes(value);
@@ -76,6 +77,7 @@ export function BathroomTabStackScreen({ navigation, route }: BathroomScreenProp
 useEffect(() => {
   const fetchData = async (): Promise<void> => {
     try {
+      const bathroomsService = BathroomService.getInstance();
       const documents = await bathroomsService.getAllDocuments();
 
       let filteredBathrooms: Bathroom[] = [];
@@ -104,7 +106,7 @@ useEffect(() => {
   
 
   fetchData();
-}, [filters, bathroomsService]);
+}, [filters]);
 
 
   const bathroomCards = bathrooms.map((bathroom: Bathroom) => {
