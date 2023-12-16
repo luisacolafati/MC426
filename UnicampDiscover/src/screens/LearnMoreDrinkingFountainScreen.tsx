@@ -51,13 +51,13 @@ export function LearnMoreScreenDrinkingFountain({ navigation, route }: LearnProp
 
           alert('Avaliação submetida com sucesso!');
           drinkingFountains;
-          navigation.navigate('DrinkingFountainScreen');
+          navigation.navigate('DrinkingFountainScreen', {});
         } catch (error) {
           console.error(error);
           alert(
             'Houve um erro ao submeter a avaliação. Tente novamente mais tarde.'
           );
-          navigation.navigate('DrinkingFountainScreen');
+          navigation.navigate('DrinkingFountainScreen', {});
         }
       };
     
@@ -96,7 +96,7 @@ export function LearnMoreScreenDrinkingFountain({ navigation, route }: LearnProp
           <Button 
             title="Voltar"
             color = '#850a0a'
-            onPress={() => navigation.navigate('DrinkingFountainScreen')}
+            onPress={() => navigation.navigate('DrinkingFountainScreen', {})}
           /></View>
         </View>
       );

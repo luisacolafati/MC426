@@ -81,7 +81,6 @@ export function BathroomFiltersScreen({ navigation }: BathroomFiltersProps) {
             title="Filtrar banheiros"
             color="#850a0a"
             onPress={() => {
-       //       console.log('Selected Filters:', selectedFilters);
               navigation.navigate('BathroomScreen', {
                 filters: selectedFilters,
               });
